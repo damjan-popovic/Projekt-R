@@ -1,0 +1,21 @@
+# Ignore node_modules (installed dependencies)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment variables
+.env
+config.py
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
