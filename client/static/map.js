@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                     Rooms: ${acc.numofrooms}<br>
                                     Capacity: ${acc.capacity}<br>
                                     Beds: ${acc.numofbeds}<br>
-                                    Bathrooms: ${acc.numofbathrooms}`);
+                                    Bathrooms: ${acc.numofbathrooms}<br>
+                                    <a href="https://www.airbnb.com/rooms/${acc.accommodationid}" target="_blank">View Listing</a>`);
                 } else {
                     console.warn("Skipping entry due to missing lat/lng:", acc);
                 }
