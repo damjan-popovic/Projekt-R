@@ -87,7 +87,7 @@ def scrape_jedan_oglas(url, ponavljanja=1):
         try:
             # 1) Kreiraj driver za *svaki* pokušaj
             options = Options()
-            #options.add_argument("--headless")
+            options.add_argument("--headless")
             options.add_argument("--disable-gpu")
             options.add_argument("--no-sandbox")
             options.add_argument("start-maximized")
@@ -388,14 +388,17 @@ def scrape_vise_oglasa(urls, radne=3):
     Smanjili smo radne=3, možete vratiti na 13 kad sve bude stabilno.
     """
     all_listings = []
+    total_urls = len(urls)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=radne) as executor:
         futures = [executor.submit(scrape_jedan_oglas, url) for url in urls]
 
         for future in concurrent.futures.as_completed(futures):
+            index = futures[future]
             try:
                 result = future.result()  # dohvati return iz scrape_jedan_oglas
                 all_listings.extend(result)
+                print(f"Progress: {index}/{total_urls} oglasa.")
             except Exception as e:
                 print(f"Greška: {e}")
 
@@ -414,7 +417,6 @@ def extract_listings_links(driver, pocetni_link):
             links = soup.find_all("a", href=True)
             for link in links:
                 href = link["href"]
-                print(href)
                 if "/rooms/" in href:
                     full_url = "https://www.airbnb.com" + href
                     listings_links.add(full_url)
@@ -438,21 +440,21 @@ def extract_listings_links(driver, pocetni_link):
                 pocetni_link = driver.current_url
             except TimeoutException:
                 if refresh_attempts < max_refresh_attempts:
-                    print(f"Next button not found. Refreshing page (Attempt {refresh_attempts + 1}/{max_refresh_attempts})...")
+                    print(f"Gumb za sljedeću stranicu nije pronađen. Pokušaj: {refresh_attempts + 1}/{max_refresh_attempts})...")
                     driver.get(pocetni_link)
                     time.sleep(1)
                     refresh_attempts += 1
                 else:
-                    print("Max refresh attempts reached. Exiting.")
+                    print("Maksimalni pokušaj refresh-anja dosegnut")
                     break
         except Exception as e:
-            print(f"Error while extracting links: {e}")
+            print(f"Greška pri izvlačenju linkova {e}")
             break
 
     return list(listings_links)
 
 def main():
-    pocetni_link = 'https://www.airbnb.com/s/Istarska-%C5%BEupanija--Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Istarska%20%C5%BEupanija&place_id=ChIJq2fmnSmxfEcRMLUrhlCtAAM&location_bb=QjYUb0FjqBRCMwfGQVfV5g%3D%3D&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click'
+    pocetni_link = 'https://www.airbnb.com/s/Primorsko~goranska-%C5%BEupanija--Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Primorsko-goranska%20%C5%BEupanija&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&price_filter_num_nights=5&place_id=ChIJq__QoTFxY0cRkLQrhlCtAAM&location_bb=QjaxJ0Fzw5NCMcNYQWG3Cw%3D%3D'
 
     options = Options()
     #options.add_argument("--headless")
