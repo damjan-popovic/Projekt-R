@@ -9,6 +9,54 @@
 </head>
 <body>
     <h1>Airbnb Listings in Croatia</h1>
+    <div id="uvjeti">
+        <form id="filterForm">
+            <label>Min Price:</label>
+            <input type="number" id="d_price" name="d_price">
+            
+            <label>Max Price:</label>
+            <input type="number" id="g_price" name="g_price">
+            
+            <label>Min Rooms:</label>
+            <input type="number" id="d_rooms" name="d_rooms">
+            
+            <label>Max Rooms:</label>
+            <input type="number" id="g_rooms" name="g_rooms">
+            
+            <label>Min Capacity:</label>
+            <input type="number" id="d_capacity" name="d_capacity">
+            
+            <label>Max Capacity:</label>
+            <input type="number" id="g_capacity" name="g_capacity">
+            
+            <label>Min Beds:</label>
+            <input type="number" id="d_beds" name="d_beds">
+            
+            <label>Max Beds:</label>
+            <input type="number" id="g_beds" name="g_beds">
+            
+            <label>Min Baths:</label>
+            <input type="number" id="d_baths" name="d_baths">
+            
+            <label>Max Baths:</label>
+            <input type="number" id="g_baths" name="g_baths">
+            
+            <label>Min Accommodation Rating:</label>
+            <input type="number" id="d_arating" name="d_arating">
+            
+            <label>Max Accommodation Rating:</label>
+            <input type="number" id="g_arating" name="g_arating">
+            
+            <label>Min Host Rating:</label>
+            <input type="number" id="d_hrating" name="d_hrating">
+            
+            <label>Max Host Rating:</label>
+            <input type="number" id="g_hrating" name="g_hrating">
+            
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+    
     <div id="map"></div>
    
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
