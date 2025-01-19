@@ -26,7 +26,7 @@ def insert_data():
 
             cur.execute("""
                 INSERT INTO accommodation (accommodationid, name, price, numofrooms, capacity, numofbeds, numofbathrooms, accrating, hostid)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (accommodationid) DO NOTHING;
             """, (accommodation_id, listing["name"], listing["cijena"], listing["broj_spavacih_soba"], listing["broj_gostiju"], listing["broj_kreveta"], listing["broj_kupaonica"], listing["rating"], host_id))
 
