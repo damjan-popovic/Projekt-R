@@ -8,3 +8,7 @@ body {
     width: 80%;
     margin: auto;
 }
+
+#zupanija:hover {
+    fill-opacity: 0.4;
+}
