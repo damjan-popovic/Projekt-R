@@ -18,6 +18,15 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 logging.getLogger('selenium.webdriver').setLevel(logging.WARNING)
 
+def extract_location_data(title):
+    zupanija_match = re.search(r",\s([^,]+županija),\sHrvatska", title)
+    grad_match = re.search(r"za najam -\s([^,]+)", title)
+
+    zupanija = zupanija_match.group(1) if zupanija_match else "Nema županije"
+    grad = grad_match.group(1) if grad_match else "Nema grada"
+
+    return zupanija, grad
+
 def scroll_until_element_found(driver, xpath, max_scrolls=10, scroll_pause=2):
 
     for scroll in range(max_scrolls):
@@ -118,6 +127,13 @@ def scrape_jedan_oglas(url, ponavljanja=1):
             # Nastavi sa scrapingom nakon uspješnog pronalaska elementa
             html_content = driver.page_source
             soup = BeautifulSoup(html_content, "lxml")
+
+            title_element = soup.find("title")
+            title = title_element.text.strip() if title_element else "Nema naslova"
+
+            zupanija, grad = extract_location_data(title)
+            if zupanija == 'Nema županije':
+                zupanija = 'Istarska županija'
 
             cijena_element = soup.find(class_="_11jcbg2")
             cijena = "".join(cijena_element.text.split()).strip() if cijena_element else "Nema cijene"
@@ -279,7 +295,7 @@ def scrape_jedan_oglas(url, ponavljanja=1):
 
             room_id = getRoomID(url)
 
-            listingsDetails.append({"id": room_id, "name": name, "cijena": cijena, **extracted_data, "latitude": latitude, "longitude": longitude})
+            listingsDetails.append({"id": room_id, "name": name, "cijena": cijena, **extracted_data, "županija": zupanija, "grad": grad, "latitude": latitude, "longitude": longitude})
             # ----------------------------------------
             # KLIK NA KALENDAR I ČITANJE BLOKIRANIH DANA
             # ----------------------------------------
@@ -434,11 +450,10 @@ def extract_listings_links(driver, pocetni_link):
                 next_button.click()
                 time.sleep(3)
                 refresh_attempts = 0
-                pocetni_link = driver.current_url
             except TimeoutException:
                 if refresh_attempts < max_refresh_attempts:
                     print(f"Gumb za sljedeću stranicu nije pronađen. Pokušaj: {refresh_attempts + 1}/{max_refresh_attempts})...")
-                    driver.get(pocetni_link)
+                    driver.refresh()
                     time.sleep(1)
                     refresh_attempts += 1
                 else:
@@ -451,7 +466,7 @@ def extract_listings_links(driver, pocetni_link):
     return list(listings_links)
 
 def main():
-    pocetni_link = 'https://www.airbnb.com/s/Splitsko~dalmatinska-%C5%BEupanija--Croatia/homes?query=Splitsko-dalmatinska%20%C5%BEupanija&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&adults=1&refinement_paths%5B%5D=%2Fhomes&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&price_filter_input_type=0&price_filter_num_nights=5&channel=EXPLORE&place_id=ChIJ2WylVSZhNRMRILUrhlCtAAM&location_bb=Qi%2Flj0GLm25CKYK5QXtakA%3D%3D'
+    pocetni_link = 'https://hr.airbnb.com/s/Istarska-%C5%BEupanija--Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Istarska%20%C5%BEupanija&place_id=ChIJq2fmnSmxfEcRMLUrhlCtAAM&location_bb=QjYUb0FjqBRCMwfGQVfV5g%3D%3D&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click'
 
     options = Options()
     #options.add_argument("--headless")
