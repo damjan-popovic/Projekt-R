@@ -44,24 +44,32 @@ def close_popups(driver, timeout=5):
     i cookie banner (klik na 'U redu'), ako postoje.
     """
     # 1) Zatvaranje prijevodnog pop-upa (klik na X gumb)
-    try:
-        # Airbnb zna staviti aria-label="Zatvori", pa probajte tako
-        translation_close_btn = WebDriverWait(driver, timeout).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Zatvori']"))
-        )
-        translation_close_btn.click()
-    except:
-        print("Nema prijevodnog pop-upa ili ga nije moguće zatvoriti.")
+    max_attempts = 3
+    attempts = 0
 
-    # 2) Zatvaranje cookie pop-upa
-    try:
-        # Ako je gumb "U redu" (ili "Prihvati", ovisno o jeziku)
-        cookies_ok_btn = WebDriverWait(driver, timeout).until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'U redu')]"))
-        )
-        cookies_ok_btn.click()
-    except:
-        print("Nema cookie pop-upa ili ga nije moguće zatvoriti.")
+    while attempts < max_attempts:
+        try:
+            translation_close_btn = WebDriverWait(driver, timeout).until(
+                EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Zatvori']"))
+            )
+            translation_close_btn.click()
+            break
+        except Exception:
+            attempts += 1
+            print("Nije pronađen prijevodni pop-up.")
+    
+    attempts = 0
+
+    while attempts < max_attempts:
+        try:
+            cookies_ok_btn = WebDriverWait(driver, timeout).until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'U redu')]"))
+            )
+            cookies_ok_btn.click()
+            break
+        except Exception:
+            attempts += 1
+            print("Nije pronađen cookie pop-up")
 
 def scrape_jedan_oglas(url, ponavljanja=1):
     """
@@ -74,10 +82,12 @@ def scrape_jedan_oglas(url, ponavljanja=1):
 
     while pokusaj < ponavljanja:
         driver = None
+        refresh_attempts = 0
+        max_refresh_attempts = 20
         try:
             # 1) Kreiraj driver za *svaki* pokušaj
             options = Options()
-            options.add_argument("--headless")
+            #options.add_argument("--headless")
             options.add_argument("--disable-gpu")
             options.add_argument("--no-sandbox")
             options.add_argument("start-maximized")
@@ -89,19 +99,31 @@ def scrape_jedan_oglas(url, ponavljanja=1):
             driver = webdriver.Chrome(service=service, options=options)
 
             # 2) Otvori stranicu
-            driver.get(url)
-            # Pričekaj da se pojavi element koji želimo parsat
-            WebDriverWait(driver, 30).until(
-                EC.presence_of_element_located((By.CLASS_NAME, "lgx66tx"))
-            )
-            close_popups(driver)
+            while refresh_attempts < max_refresh_attempts:
+                driver.get(url)
+                close_popups(driver)
+                try:
+                    # Pričekaj da se pojavi element koji želimo parsat
+                    WebDriverWait(driver, 5).until(
+                        EC.presence_of_element_located((By.CLASS_NAME, "lgx66tx"))
+                    )
+                    break  # Ako je element pronađen, izađi iz refresh petlje
 
-            # Scroll dolje da se učita kod Google Maps-a
+                except (TimeoutException, NoSuchElementException):
+                    refresh_attempts += 1
+                    print(f"Element nije pronađen. Pokušaj osvježavanja: {refresh_attempts}/{max_refresh_attempts}")
+                    if refresh_attempts >= max_refresh_attempts:
+                        raise Exception("Element nije pronađen nakon višestrukih osvježavanja stranice.")
 
+            # Nastavi sa scrapingom nakon uspješnog pronalaska elementa
             html_content = driver.page_source
             soup = BeautifulSoup(html_content, "lxml")
 
+            cijena_element = soup.find(class_="_11jcbg2")
+            cijena = "".join(cijena_element.text.split()).strip() if cijena_element else "Nema cijene"
+
             # Izvlačenje Google Maps linka
+            # Scroll dolje da se učita kod Google Maps-a
 
             retries = 3
             for attempt in range(retries):
@@ -146,15 +168,18 @@ def scrape_jedan_oglas(url, ponavljanja=1):
             name_element = soup.find(class_="_1czgyoo")
             name = name_element.text.strip() if name_element else "Nema naziva"
             
-            span_element = soup.find("span", string=lambda text: text and "ocjena" in text.lower())
+            parent_div = soup.find("div", class_="a8jhwcl atm_c8_vvn7el atm_g3_k2d186 atm_fr_1vi102y atm_9s_1txwivl atm_ar_1bp4okc atm_h_1h6ojuz atm_cx_t94yts atm_le_14y27yu atm_c8_sz6sci__14195v1 atm_g3_17zsb9a__14195v1 atm_fr_kzfbxz__14195v1 atm_cx_1l7b3ar__14195v1 atm_le_1l7b3ar__14195v1 dir dir-ltr")
 
-                        # Provjeri postoji li <span> i pronađi sljedeći <div>
-            if span_element:
-                next_div = span_element.find_next_sibling("div")
-                div_content = next_div.text if next_div else "Nema sadržaja"
+            if parent_div:
+                rating_div = parent_div.find("div", {"aria-hidden": "true"})
+                if rating_div:
+                    rating = rating_div.text.strip()
+                else:
+                    print("Nema rating_div elementa")
+                    rating = "Nema"
             else:
-                div_content = "Nema pronađenog span elementa"
-            
+                print("Nema rating parent elementa")
+                rating = "Nema"  
            
             # Dohvati listu detalja
             main_list = soup.find("ol", class_="lgx66tx atm_gi_idpfg4 atm_l8_idpfg4 dir dir-ltr")
@@ -164,12 +189,12 @@ def scrape_jedan_oglas(url, ponavljanja=1):
                 "broj_kreveta": 0,
                 "broj_kupaonica": 0,
                 "rating":0,
+                "host_id":0,
                 "host_name":0,
                 "host_rating":0
             }
 
-            if div_content:
-                extracted_data['rating']=div_content
+            extracted_data['rating'] = rating
 
             if main_list:
                 items = main_list.find_all("li")
@@ -194,39 +219,67 @@ def scrape_jedan_oglas(url, ponavljanja=1):
                     "//a[@aria-label='Otvori cijeli profil domaćina']"
                 ))
             ) 
-                   
             
             # Klikni na link
-            ActionChains(driver).move_to_element(link).click(link).perform()
+            refresh_attempts = 0
+            max_refresh_attempts = 20
 
-            
-            host_name_element = WebDriverWait(driver, 30).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "span.t1gpcl1t.atm_w4_16rzvi6.atm_9s_1o8liyq.atm_gi_idpfg4.dir.dir-ltr"))
-            )
-            
-            html_content1 = driver.page_source
-            soup = BeautifulSoup(html_content1, "lxml")
-            
-            # Dohvati tekst elementa
-            host_name = host_name_element.text
-            
-            # Pronađi <div> koji sadrži ocjenu
-            rating_element = soup.find("div", class_="ruujrrq atm_9s_1txwivl atm_ar_vrvcex atm_h_1h6ojuz atm_cx_yh40bf dir dir-ltr")
-            
-            # Dohvati tekst iz elementa
-            rating = rating_element.text.strip() if rating_element else "Nema ocjene"
-            
-            if host_name:
-                extracted_data['host_name']=host_name
-            
-            if rating:
-                extracted_data['host_rating']=rating
+            while refresh_attempts < max_refresh_attempts:
+                try:
+                    # Klikni na link za cijeli profil domaćina
+                    ActionChains(driver).move_to_element(link).click(link).perform()
+
+                    # Pričekaj da se prikaže element s imenom domaćina
+                    host_name_element = WebDriverWait(driver, 5).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, "span.t1gpcl1t.atm_w4_16rzvi6.atm_9s_1o8liyq.atm_gi_idpfg4.dir.dir-ltr"))
+                    )
+
+                    WebDriverWait(driver, 10).until(
+                        lambda d: re.search(r'/users/show/\d+', d.current_url)
+                    )
+
+                    autorURL = driver.current_url
+                    sastav = re.search(r'/users/show/(\d+)', autorURL)
+
+                    if sastav:
+                        autorID = sastav.group(1)
+                    else:
+                        autorID = 'Greška'
+
+                    extracted_data['host_id'] = autorID
+
+                    # Dohvati HTML sadržaj nakon učitavanja
+                    html_content1 = driver.page_source
+                    soup = BeautifulSoup(html_content1, "lxml")
+
+                    # Dohvati tekst elementa za ime domaćina
+                    host_name = host_name_element.text.strip()
+
+                    # Pronađi <div> koji sadrži ocjenu
+                    rating_element = soup.find("div", class_="ruujrrq atm_9s_1txwivl atm_ar_vrvcex atm_h_1h6ojuz atm_cx_yh40bf dir dir-ltr")
+                    rating = rating_element.text.strip() if rating_element else "Nema ocjene"
+
+                    # Ako su oba elementa pronađena, prekidamo petlju
+                    extracted_data['host_name'] = host_name
+                    extracted_data['host_rating'] = rating
+                    break
+
+                except (TimeoutException, NoSuchElementException) as e:
+                    refresh_attempts += 1
+                    print(f"Problem s elementima host_name ili rating. Osvježavanje stranice: {refresh_attempts}/{max_refresh_attempts}")
+                    driver.refresh()  # Osvježi stranicu
+                    time.sleep(2)  # Pauza nakon osvježavanja
+
+            if refresh_attempts >= max_refresh_attempts:
+                print("Nisu pronađeni potrebni elementi nakon višestrukih pokušaja.")
+                extracted_data['host_name'] = "Nema imena domaćina"
+                extracted_data['host_rating'] = "Nema ocjene"
 
             # Izvlačenje ID-a listinga, za provjeru imamo li ga već u bazi u ponovnim pokretanjima skripte
 
             room_id = getRoomID(url)
 
-            listingsDetails.append({"id": room_id, "name": name, **extracted_data, "latitude": latitude, "longitude": longitude})
+            listingsDetails.append({"id": room_id, "name": name, "cijena": cijena, **extracted_data, "latitude": latitude, "longitude": longitude})
             # ----------------------------------------
             # KLIK NA KALENDAR I ČITANJE BLOKIRANIH DANA
             # ----------------------------------------
@@ -352,44 +405,57 @@ def extract_listings_links(driver, pocetni_link):
     driver.get(pocetni_link)
     listings_links = set()
     scroll_pause = 2
+    max_refresh_attempts = 20
+    refresh_attempts = 0
 
     while True:
-        soup = BeautifulSoup(driver.page_source, "lxml")
-        links = soup.find_all("a", href=True)
-        for link in links:
-            href = link["href"]
-            if "/rooms/" in href:
-                full_url = "https://www.airbnb.com" + href.split("?")[0]
-                listings_links.add(full_url)
-
-        # Za testiranje da se ne uzimaju svi linkovi sa Airbnb-a
-
-        # if len(listings_links) > 36:
-        #     break
-
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(scroll_pause)
-        close_popups(driver)
-
         try:
-            next_button = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Sljedeće' or @aria-label='Next']"))
-            )
-            next_button.click()
-            time.sleep(3)
-        except TimeoutException:
-            print("No more pages to navigate.")
+            soup = BeautifulSoup(driver.page_source, "lxml")
+            links = soup.find_all("a", href=True)
+            for link in links:
+                href = link["href"]
+                print(href)
+                if "/rooms/" in href:
+                    full_url = "https://www.airbnb.com" + href
+                    listings_links.add(full_url)
+
+            # Za testiranje (limitiramo koliko linkova želimo skupiti)
+            if len(listings_links) > 36:
+                break
+
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(scroll_pause)
+
+            # Provjera postoji li gumb i refresh ako ne
+            try:
+                next_button = WebDriverWait(driver, 3).until(
+                    EC.element_to_be_clickable((By.XPATH, "//a[@aria-label='Sljedeće' or @aria-label='Next']"))
+                )
+                close_popups(driver)
+                next_button.click()
+                time.sleep(3)
+                refresh_attempts = 0
+                pocetni_link = driver.current_url
+            except TimeoutException:
+                if refresh_attempts < max_refresh_attempts:
+                    print(f"Next button not found. Refreshing page (Attempt {refresh_attempts + 1}/{max_refresh_attempts})...")
+                    driver.get(pocetni_link)
+                    time.sleep(1)
+                    refresh_attempts += 1
+                else:
+                    print("Max refresh attempts reached. Exiting.")
+                    break
+        except Exception as e:
+            print(f"Error while extracting links: {e}")
             break
 
     return list(listings_links)
 
-
-
 def main():
-    pocetni_link = 'https://www.airbnb.com/s/Primorsko~goranska-%C5%BEupanija--Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Primorsko-goranska%20%C5%BEupanija&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&price_filter_num_nights=5&place_id=ChIJq__QoTFxY0cRkLQrhlCtAAM&location_bb=QjaxJ0Fzw5NCMcNYQWG3Cw%3D%3D'
+    pocetni_link = 'https://www.airbnb.com/s/Istarska-%C5%BEupanija--Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Istarska%20%C5%BEupanija&place_id=ChIJq2fmnSmxfEcRMLUrhlCtAAM&location_bb=QjYUb0FjqBRCMwfGQVfV5g%3D%3D&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click'
 
     options = Options()
-    options.add_argument("--headless")
+    #options.add_argument("--headless")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("start-maximized")
@@ -402,6 +468,7 @@ def main():
 
     try:
         urls = extract_listings_links(driver, pocetni_link)
+        print(urls)
 
         pocetno_vrijeme = time.time()
         listingsDetails = scrape_vise_oglasa(urls)
