@@ -63,6 +63,7 @@ fetch('static/gadm41_HRV_1.json')  // Ensure the file is in the "static" folder
                         .addTo(map)
                         .bindPopup(`<b>${acc.acc_name}</b><br>
                                     Host: ${acc.hostname} ${acc.hostsurname}<br>
+                                    Pricing: ${acc.price} night<br>
                                     Rating: ${acc.accrating}<br>
                                     Rooms: ${acc.numofrooms}<br>
                                     Capacity: ${acc.capacity}<br>

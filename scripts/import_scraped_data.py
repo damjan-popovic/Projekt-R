@@ -15,7 +15,7 @@ def insert_data():
     for listing in listings:
         try:
             accommodation_id = listing["id"]
-            host_id = listing["id"]
+            host_id = listing["host_id"]
             location_id = listing["id"]
 
             cur.execute("""
@@ -25,10 +25,10 @@ def insert_data():
             """, (host_id, listing["host_name"], '', listing["host_rating"]))
 
             cur.execute("""
-                INSERT INTO accommodation (accommodationid, name, numofrooms, capacity, numofbeds, numofbathrooms, accrating, hostid)
+                INSERT INTO accommodation (accommodationid, name, price, numofrooms, capacity, numofbeds, numofbathrooms, accrating, hostid)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (accommodationid) DO NOTHING;
-            """, (accommodation_id, listing["name"], listing["broj_spavacih_soba"], listing["broj_gostiju"], listing["broj_kreveta"], listing["broj_kupaonica"], listing["rating"], host_id))
+            """, (accommodation_id, listing["name"], listing["cijena"], listing["broj_spavacih_soba"], listing["broj_gostiju"], listing["broj_kreveta"], listing["broj_kupaonica"], listing["rating"], host_id))
 
             cur.execute("""
                 INSERT INTO location (locationid, geolength, geowidth, accommodationid)

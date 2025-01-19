@@ -20,7 +20,8 @@ app.get("/api/data", async (req, res) => {
         const query = `
             SELECT 
                 a.accommodationid, 
-                a.name AS acc_name, 
+                a.name AS acc_name,
+                a.price,
                 a.numofrooms, 
                 a.capacity, 
                 a.numofbeds, 

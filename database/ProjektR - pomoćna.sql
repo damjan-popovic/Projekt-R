@@ -1,13 +1,15 @@
 CREATE TABLE accommodation (
     accommodationid varchar NOT NULL,
     name varchar NOT NULL,
+    price varchar,
     numofrooms integer,
     capacity integer,
     numofbeds integer,
     numofbathrooms integer,
     accrating varchar DEFAULT 0,
     hostid varchar,
-    PRIMARY KEY(accommodationid)
+    PRIMARY KEY(accommodationid),
+    FOREIGN KEY(hostid) REFERENCES host(hostid)
 );
 
 CREATE TABLE host (
