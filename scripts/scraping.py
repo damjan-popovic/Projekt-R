@@ -388,17 +388,14 @@ def scrape_vise_oglasa(urls, radne=3):
     Smanjili smo radne=3, možete vratiti na 13 kad sve bude stabilno.
     """
     all_listings = []
-    total_urls = len(urls)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=radne) as executor:
         futures = [executor.submit(scrape_jedan_oglas, url) for url in urls]
 
         for future in concurrent.futures.as_completed(futures):
-            index = futures[future]
             try:
                 result = future.result()  # dohvati return iz scrape_jedan_oglas
                 all_listings.extend(result)
-                print(f"Progress: {index}/{total_urls} oglasa.")
             except Exception as e:
                 print(f"Greška: {e}")
 
@@ -454,7 +451,7 @@ def extract_listings_links(driver, pocetni_link):
     return list(listings_links)
 
 def main():
-    pocetni_link = 'https://www.airbnb.com/s/Primorsko~goranska-%C5%BEupanija--Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Primorsko-goranska%20%C5%BEupanija&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&price_filter_num_nights=5&place_id=ChIJq__QoTFxY0cRkLQrhlCtAAM&location_bb=QjaxJ0Fzw5NCMcNYQWG3Cw%3D%3D'
+    pocetni_link = 'https://www.airbnb.com/s/Splitsko~dalmatinska-%C5%BEupanija--Croatia/homes?query=Splitsko-dalmatinska%20%C5%BEupanija&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&adults=1&refinement_paths%5B%5D=%2Fhomes&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&price_filter_input_type=0&price_filter_num_nights=5&channel=EXPLORE&place_id=ChIJ2WylVSZhNRMRILUrhlCtAAM&location_bb=Qi%2Flj0GLm25CKYK5QXtakA%3D%3D'
 
     options = Options()
     #options.add_argument("--headless")
