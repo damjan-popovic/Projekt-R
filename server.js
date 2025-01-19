@@ -15,7 +15,8 @@ const pool = new Pool({
     port: 5433,
 });
 
-app.get("/api/data", async (req, res) => {
+app.post("/api/data", async (req, res) => {
+    const { d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating } = req.body;
     try {
         const query = `
             SELECT 
@@ -34,9 +35,18 @@ app.get("/api/data", async (req, res) => {
                 h.hostrating
             FROM accommodation a
             LEFT JOIN location l ON a.accommodationid = l.accommodationid
-            LEFT JOIN host h ON a.hostid = h.hostid;
-        `;
-        const result = await pool.query(query);
+            LEFT JOIN host h ON a.hostid = h.hostid
+			WHERE 
+			CAST(REPLACE(a.price, '€', '') AS INTEGER) between $1 and $2 AND
+			a.numofrooms between $3 and $4 AND
+			a.capacity between $5 and $6 AND
+			a.numofbeds between $7 and $8 AND
+			a.numofbathrooms between $9 and $10 AND
+			CAST(REPLACE(REPLACE(a.accrating, 'Nema', '0'), ',', '.') AS DECIMAL) between $11 and $12 AND
+			CAST(REPLACE(REPLACE(h.hostrating, 'Nema ocjene', '0'), ',', '.') AS DECIMAL) between $13 and $14;
+        `
+        values = [d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating ];
+        const result = await pool.query(query, values);
         res.json(result.rows);
     } catch (error) {
         console.error("Database error:", error);

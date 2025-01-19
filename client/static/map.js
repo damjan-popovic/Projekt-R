@@ -1,18 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     let map = L.map('map').setView([45.1, 15.2], 7);
 
-    // Load OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-// Load Croatia counties GeoJSON
-fetch('static/gadm41_HRV_1.json')  // Ensure the file is in the "static" folder
+fetch('static/gadm41_HRV_1.json')
     .then(response => response.json())
     .then(data => {
         function styleFeature(feature) {
             return {
-                className: `${feature.properties.NAME_1.replace(/\s+/g, '-')}`, // Make it CSS-friendly
+                className: `${feature.properties.NAME_1.replace(/\s+/g, '-')}`,
                 color: "blue",
                 weight: 2,
                 fillOpacity: 0.2
@@ -22,14 +20,14 @@ fetch('static/gadm41_HRV_1.json')  // Ensure the file is in the "static" folder
         function highlightFeature(e) {
             let layer = e.target;
             layer.setStyle({
-                fillOpacity: 0.6, // Darker fill on hover
+                fillOpacity: 0.6,
                 weight: 3,
                 color: "darkblue"
             });
         }
 
         function resetHighlight(e) {
-            geojsonLayer.resetStyle(e.target); // Reset to default style
+            geojsonLayer.resetStyle(e.target);
         }
 
         function onEachFeature(feature, layer) {
@@ -47,7 +45,6 @@ fetch('static/gadm41_HRV_1.json')  // Ensure the file is in the "static" folder
     })
     .catch(error => console.error('Error loading GeoJSON:', error));
 
-    // Load Airbnb data and add markers
     fetch('http://localhost:3000/api/data')
         .then(response => response.json())
         .then(data => {
