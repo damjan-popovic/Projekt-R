@@ -1,23 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let map = L.map('map').setView([45.1, 15.2], 7);
+    let map = L.map('map').setView([44.5569, 16.3678], 8);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
+
+    let menu = document.getElementById("menu");
+    let mapContainer = document.getElementById("map-container");
+    let lijevoTijelo = document.querySelector(".lijevo-tijelo");
+    let naslovTijelo = document.querySelector(".naslov-tijelo");
+    let screenWidth = window.innerWidth;
+
+    let menuWidth = screenWidth > 768 ? "15%" : "20%";
+
+    mapContainer.style.width = screenWidth > 768 ? "calc(100% + 22%)" : "calc(100% + 40%)";
+    mapContainer.style.marginLeft = screenWidth > 768 ? "-6%" : "-12%";
+    lijevoTijelo.style.width = screenWidth > 768 ? "5%": "10%";
+
+    document.getElementById("menu-toggle").addEventListener("click", function() {
+        if (menu.style.left === "-100%" || menu.style.left === "") {
+            menu.style.left = "0";
+            lijevoTijelo.style.width = menuWidth;
+            mapContainer.style.width = "100%";
+            mapContainer.style.marginLeft = "0";
+        } else {
+            menu.style.left = "-100%";
+            lijevoTijelo.style.width = screenWidth > 768 ? "5%": "0%";
+            mapContainer.style.width = screenWidth > 768 ? "calc(100% + 22%)" : "calc(100% + 40%)";
+            mapContainer.style.marginLeft = screenWidth > 768 ? "-6%" : "-12";
+        }
+    });
 
     document.getElementById('filterForm').addEventListener('submit', function (event) {
         event.preventDefault(); 
 
         let d_price = document.getElementById("d_price").value || 0;
         let g_price = document.getElementById("g_price").value || 1000000;
-        let d_rooms = document.getElementById("d_rooms").value || 0;
-        let g_rooms = document.getElementById("g_rooms").value || 1000;
-        let d_capacity = document.getElementById("d_capacity").value || 0;
-        let g_capacity = document.getElementById("g_capacity").value || 1000;
-        let d_beds = document.getElementById("d_beds").value || 0;
-        let g_beds = document.getElementById("g_beds").value || 1000;
-        let d_baths = document.getElementById("d_baths").value || 0;
-        let g_baths = document.getElementById("g_baths").value || 1000;
+        let d_rooms = document.getElementById("rooms").value || 0;
+        let g_rooms = document.getElementById("rooms").value || 1000;
+        let d_capacity = document.getElementById("capacity").value || 0;
+        let g_capacity = document.getElementById("capacity").value || 1000;
+        let d_beds = document.getElementById("beds").value || 0;
+        let g_beds = document.getElementById("beds").value || 1000;
+        let d_baths = document.getElementById("baths").value || 0;
+        let g_baths = document.getElementById("baths").value || 1000;
         let d_arating = document.getElementById("d_arating").value || 0;
         let g_arating = document.getElementById("g_arating").value || 5;
         let d_hrating = document.getElementById("d_hrating").value || 0;

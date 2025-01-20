@@ -38,7 +38,7 @@ app.post("/api/data", async (req, res) => {
             LEFT JOIN location l ON a.accommodationid = l.accommodationid
             LEFT JOIN host h ON a.hostid = h.hostid
 			WHERE 
-			CAST(REPLACE(a.price, '€', '') AS INTEGER) between $1 and $2 AND
+			CAST(REPLACE(REPLACE(a.price, 'Nema cijene', '0'), '€', '') AS INTEGER) between $1 and $2 AND
 			a.numofrooms between $3 and $4 AND
 			a.capacity between $5 and $6 AND
 			a.numofbeds between $7 and $8 AND

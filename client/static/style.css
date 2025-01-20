@@ -1,14 +1,188 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.tijelo {
+    display: flex;
+    height: 100vh;
+}
+
+
+/* LIJEVI DIO STRANICE -----------------------------------*/
+.lijevo-tijelo {
+    display: flex;
+    flex-direction: column;
+    width: 5%; 
+    height: 100vh;
+    transition: width 0.5s ease-in-out;
+}
+
+.gumb-toggle-tijelo {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0.5vw;
+    top: 4vh;
+    background-color: #ffffff;
+    transition: background-color 0.5s ease-in-out, left 0.5s ease-in-out;
+    z-index: 2000;
+}
+
+.gumb-toggle{
+    width: fit-content;
+    font-size: 1.4vh;
+}
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 15%;
+    padding-top: 10vh;
+    background-color: #a5a2a2;
+    position: absolute;
+    transition: left 0.5s ease-in-out;
+    left: -100%;
+}
+/* ------------------------------------------------------- */
+
+/* DESNI DIO STRANICE -----------------------------------*/
+.desno-tijelo {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+    transition: width 0.5s ease-in-out;
+}
+.naslov-tijelo{
+    position: fixed;
+    top: 0;
+    left: 30%;
+    width: 50%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.naslov {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    width: 100%;
+    font-size: 5vh;
+    margin: 2vh 0 1vh 0;
     text-align: center;
 }
 
-#map {
-    height: 90vh;
-    width: 80%;
-    margin: auto;
+#map-container {
+    height: 90%;
+    margin-top: 12vh;
+    width: calc(100% + 22%);
+    margin-left: -6%;
+    transition: all 0.5s ease-in-out;
 }
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+/* ------------------------------------------------------- */
+
+
+/* ZA MENI SA STRANE -----------------------------------*/
+#od-do{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    text-align: left;
+    gap: 1vh;
+    margin: 2%;
+}
+
+#od-do-tijelo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1%;
+}
+
+.od-do-input{
+    width: 100%;
+}
+
+#samostalni-brojevi{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    text-align: left;
+    margin: 2%;
+}
+
+#samostalni-brojevi-tijelo{
+    display: flex;
+}
+
+.samostalni-brojevi-input{
+    width: 90%;
+}
+
+.gumb-tijelo{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.gumb-filter{
+    width: fit-content;
+}
+
+/* ------------------------------------------------------- */
 
 #zupanija:hover {
     fill-opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+    html, body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    .lijevo-tijelo {
+        width: 0%; 
+    }
+
+    #menu {
+        height: 100%;
+        width: 20%;
+        padding-top: 10vh;
+    }
+
+    .desno-tijelo {
+        width: 80%;
+        
+    }
+
+    #map-container {
+        width: calc(100% + 40%);
+        margin-left: 0;
+        right: 0;
+    }
+
+    .naslov {
+        font-size: 3vh;
+        width: 100%;
+        margin: 3vh 0 1vh 0vh;
+    }
 }
