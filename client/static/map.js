@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let selectedCounty = document.getElementById("selectedCounty").value || 'nijedno';
         let selectedSubregion = document.getElementById("selectedSubregion").value || 'nijedno';
 
-        console.log(selectedCounty, selectedSubregion)
         fetch('http://localhost:3000/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

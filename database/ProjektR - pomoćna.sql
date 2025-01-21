@@ -24,6 +24,8 @@ CREATE TABLE location (
     locationid varchar NOT NULL,
     geolength numeric,
     geowidth numeric,
+    županija varchar,
+    grad varchar,
     accommodationid varchar,
     PRIMARY KEY(locationid),
     FOREIGN KEY(accommodationid) REFERENCES accommodation(accommodationid)

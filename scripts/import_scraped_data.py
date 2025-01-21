@@ -31,10 +31,10 @@ def insert_data():
             """, (accommodation_id, listing["name"], listing["cijena"], listing["broj_spavacih_soba"], listing["broj_gostiju"], listing["broj_kreveta"], listing["broj_kupaonica"], listing["rating"], host_id))
 
             cur.execute("""
-                INSERT INTO location (locationid, geolength, geowidth, accommodationid)
-                VALUES (%s, %s, %s, %s)
+                INSERT INTO location (locationid, geolength, geowidth, županija, grad, accommodationid)
+                VALUES (%s, %s, %s, %s, %s, %s)
                 ON CONFLICT (locationid) DO NOTHING;
-            """, (location_id, listing["latitude"], listing["longitude"], accommodation_id))
+            """, (location_id, listing["latitude"], listing["longitude"], listing["županija"], listing["grad"], accommodation_id))
 
         except Exception as e:
             print(f"Error inserting data for {listing['name']}: {e}")
