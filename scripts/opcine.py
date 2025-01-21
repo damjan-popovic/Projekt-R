@@ -1,4 +1,7 @@
-[
+import requests
+import json
+
+info = [
     {
         "id": "33791362",
         "name": "Luksuzni stan Regina u blizini centra",
@@ -14,8 +17,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.51434",
-        "longitude": "16.44862",
-        "praviGrad": "Split"
+        "longitude": "16.44862"
     },
     {
         "id": "2384574",
@@ -32,8 +34,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Hvar",
         "latitude": "43.1688",
-        "longitude": "16.4448",
-        "praviGrad": "Hvar"
+        "longitude": "16.4448"
     },
     {
         "id": "589569775831149322",
@@ -50,8 +51,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50532",
-        "longitude": "16.471",
-        "praviGrad": "Split"
+        "longitude": "16.471"
     },
     {
         "id": "1121469158235272241",
@@ -68,8 +68,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Omiš",
         "latitude": "43.44167",
-        "longitude": "16.69156",
-        "praviGrad": "Omiš"
+        "longitude": "16.69156"
     },
     {
         "id": "35869669",
@@ -86,8 +85,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Podstrana",
         "latitude": "43.50477",
-        "longitude": "16.54334",
-        "praviGrad": "Podstrana"
+        "longitude": "16.54334"
     },
     {
         "id": "37315135",
@@ -104,8 +102,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5056",
-        "longitude": "16.452",
-        "praviGrad": "Split"
+        "longitude": "16.452"
     },
     {
         "id": "35967622",
@@ -122,8 +119,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5035",
-        "longitude": "16.4842",
-        "praviGrad": "Split"
+        "longitude": "16.4842"
     },
     {
         "id": "33989308",
@@ -140,8 +136,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5043",
-        "longitude": "16.4134",
-        "praviGrad": "Split"
+        "longitude": "16.4134"
     },
     {
         "id": "842061553403815890",
@@ -156,10 +151,9 @@
         "host_name": "Sara",
         "host_rating": "5",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Dugi Rat",
+        "grad": "Jesenice",
         "latitude": "43.4646",
-        "longitude": "16.5868",
-        "praviGrad": "Jesenice"
+        "longitude": "16.5868"
     },
     {
         "id": "675159855771001843",
@@ -176,8 +170,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50977",
-        "longitude": "16.44389",
-        "praviGrad": "Split"
+        "longitude": "16.44389"
     },
     {
         "id": "6990578",
@@ -194,8 +187,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Podstrana",
         "latitude": "43.4819",
-        "longitude": "16.5566",
-        "praviGrad": "Podstrana"
+        "longitude": "16.5566"
     },
     {
         "id": "1198546240126522043",
@@ -212,8 +204,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5137",
-        "longitude": "16.4377",
-        "praviGrad": "Split"
+        "longitude": "16.4377"
     },
     {
         "id": "17112149",
@@ -230,8 +221,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5035",
-        "longitude": "16.4262",
-        "praviGrad": "Split"
+        "longitude": "16.4262"
     },
     {
         "id": "6690200",
@@ -248,8 +238,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50792",
-        "longitude": "16.42277",
-        "praviGrad": "Split"
+        "longitude": "16.42277"
     },
     {
         "id": "43685900",
@@ -266,8 +255,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Bilice",
         "latitude": "43.794",
-        "longitude": "15.8971",
-        "praviGrad": "Bilice"
+        "longitude": "15.8971"
     },
     {
         "id": "1259953643091232039",
@@ -284,8 +272,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Omiš",
         "latitude": "43.438966",
-        "longitude": "16.698817",
-        "praviGrad": "Omiš"
+        "longitude": "16.698817"
     },
     {
         "id": "641779212695693923",
@@ -302,8 +289,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50634",
-        "longitude": "16.46503",
-        "praviGrad": "Split"
+        "longitude": "16.46503"
     },
     {
         "id": "48198109",
@@ -318,10 +304,9 @@
         "host_name": "Marko",
         "host_rating": "4,96",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Okrug",
+        "grad": "Okrug Gornji",
         "latitude": "43.48918",
-        "longitude": "16.28039",
-        "praviGrad": "Okrug Gornji"
+        "longitude": "16.28039"
     },
     {
         "id": "1053468172572934485",
@@ -338,8 +323,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Podstrana",
         "latitude": "43.48991",
-        "longitude": "16.55014",
-        "praviGrad": "Podstrana"
+        "longitude": "16.55014"
     },
     {
         "id": "18594169",
@@ -356,8 +340,7 @@
         "županija": "Splitsko-Dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50908",
-        "longitude": "16.43178",
-        "praviGrad": "Split"
+        "longitude": "16.43178"
     },
     {
         "id": "34381631",
@@ -374,8 +357,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.51403",
-        "longitude": "16.44883",
-        "praviGrad": "Split"
+        "longitude": "16.44883"
     },
     {
         "id": "630340800095295283",
@@ -392,8 +374,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5159",
-        "longitude": "16.4813",
-        "praviGrad": "Split"
+        "longitude": "16.4813"
     },
     {
         "id": "1086168369433477394",
@@ -410,8 +391,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50347",
-        "longitude": "16.47312",
-        "praviGrad": "Split"
+        "longitude": "16.47312"
     },
     {
         "id": "16904176",
@@ -428,8 +408,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.51092",
-        "longitude": "16.43373",
-        "praviGrad": "Split"
+        "longitude": "16.43373"
     },
     {
         "id": "43766864",
@@ -446,8 +425,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5079",
-        "longitude": "16.43355",
-        "praviGrad": "Split"
+        "longitude": "16.43355"
     },
     {
         "id": "43929162",
@@ -464,8 +442,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Trogir",
         "latitude": "43.52074",
-        "longitude": "16.2505",
-        "praviGrad": "Trogir"
+        "longitude": "16.2505"
     },
     {
         "id": "23033518",
@@ -482,8 +459,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Podstrana",
         "latitude": "43.49109",
-        "longitude": "16.54987",
-        "praviGrad": "Podstrana"
+        "longitude": "16.54987"
     },
     {
         "id": "12321982",
@@ -500,8 +476,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5086",
-        "longitude": "16.4325",
-        "praviGrad": "Split"
+        "longitude": "16.4325"
     },
     {
         "id": "671538496107331469",
@@ -518,8 +493,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50958",
-        "longitude": "16.44215",
-        "praviGrad": "Split"
+        "longitude": "16.44215"
     },
     {
         "id": "16689085",
@@ -536,8 +510,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50892",
-        "longitude": "16.43175",
-        "praviGrad": "Split"
+        "longitude": "16.43175"
     },
     {
         "id": "14148784",
@@ -552,10 +525,9 @@
         "host_name": "Sandra I Jurica",
         "host_rating": "4,95",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Omiš",
+        "grad": "Marušići",
         "latitude": "43.4016",
-        "longitude": "16.8291",
-        "praviGrad": "Marušići"
+        "longitude": "16.8291"
     },
     {
         "id": "18594779",
@@ -572,8 +544,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5106",
-        "longitude": "16.4557",
-        "praviGrad": "Split"
+        "longitude": "16.4557"
     },
     {
         "id": "32197176",
@@ -588,10 +559,9 @@
         "host_name": "Rene",
         "host_rating": "4,98",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Gradac",
+        "grad": "Podaca",
         "latitude": "43.1289",
-        "longitude": "17.3434",
-        "praviGrad": "Podaca"
+        "longitude": "17.3434"
     },
     {
         "id": "35362170",
@@ -606,10 +576,9 @@
         "host_name": "Marija",
         "host_rating": "4,88",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Hvar",
+        "grad": "Sveta Nedilja",
         "latitude": "43.13381",
-        "longitude": "16.59047",
-        "praviGrad": "Sveta Nedilja"
+        "longitude": "16.59047"
     },
     {
         "id": "1047666029673928815",
@@ -626,8 +595,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Selca",
         "latitude": "43.2929",
-        "longitude": "16.8486",
-        "praviGrad": "Selca"
+        "longitude": "16.8486"
     },
     {
         "id": "1297926316629348056",
@@ -644,8 +612,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Podstrana",
         "latitude": "43.4903",
-        "longitude": "16.5517",
-        "praviGrad": "Podstrana"
+        "longitude": "16.5517"
     },
     {
         "id": "37324195",
@@ -662,8 +629,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5056",
-        "longitude": "16.452",
-        "praviGrad": "Split"
+        "longitude": "16.452"
     },
     {
         "id": "584766915654853000",
@@ -680,8 +646,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50372",
-        "longitude": "16.47281",
-        "praviGrad": "Split"
+        "longitude": "16.47281"
     },
     {
         "id": "1155606084457808825",
@@ -696,10 +661,9 @@
         "host_name": "Lily",
         "host_rating": "5",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Kaštela",
+        "grad": "Kaštel Sućurac",
         "latitude": "43.5449",
-        "longitude": "16.4265",
-        "praviGrad": "Kaštel Sućurac"
+        "longitude": "16.4265"
     },
     {
         "id": "1167548858071408664",
@@ -716,8 +680,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.503592",
-        "longitude": "16.45873",
-        "praviGrad": "Split"
+        "longitude": "16.45873"
     },
     {
         "id": "1135346338957203841",
@@ -734,8 +697,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5088",
-        "longitude": "16.4569",
-        "praviGrad": "Split"
+        "longitude": "16.4569"
     },
     {
         "id": "49088003",
@@ -752,8 +714,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Podstrana",
         "latitude": "43.4855",
-        "longitude": "16.5793",
-        "praviGrad": "Podstrana"
+        "longitude": "16.5793"
     },
     {
         "id": "36343117",
@@ -770,8 +731,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.511",
-        "longitude": "16.4463",
-        "praviGrad": "Split"
+        "longitude": "16.4463"
     },
     {
         "id": "18592859",
@@ -788,8 +748,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5106",
-        "longitude": "16.4557",
-        "praviGrad": "Split"
+        "longitude": "16.4557"
     },
     {
         "id": "16265897",
@@ -804,10 +763,9 @@
         "host_name": "Tonka",
         "host_rating": "4,82",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Okrug",
+        "grad": "Okrug Gornji",
         "latitude": "43.4831",
-        "longitude": "16.2424",
-        "praviGrad": "Okrug Gornji"
+        "longitude": "16.2424"
     },
     {
         "id": "1770657",
@@ -824,8 +782,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5095",
-        "longitude": "16.4376",
-        "praviGrad": "Split"
+        "longitude": "16.4376"
     },
     {
         "id": "1063731113582987429",
@@ -840,10 +797,9 @@
         "host_name": "Marja",
         "host_rating": "4,97",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Dugi Rat",
+        "grad": "Jesenice",
         "latitude": "43.45485",
-        "longitude": "16.62116",
-        "praviGrad": "Jesenice"
+        "longitude": "16.62116"
     },
     {
         "id": "867189504108737399",
@@ -860,8 +816,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Jelsa",
         "latitude": "43.1558",
-        "longitude": "16.8135",
-        "praviGrad": "Jelsa"
+        "longitude": "16.8135"
     },
     {
         "id": "35345130",
@@ -878,8 +833,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Jelsa",
         "latitude": "43.16306",
-        "longitude": "16.70007",
-        "praviGrad": "Jelsa"
+        "longitude": "16.70007"
     },
     {
         "id": "3588402",
@@ -894,10 +848,9 @@
         "host_name": "Mirela",
         "host_rating": "4,99",
         "županija": "Splitsko-dalmatinska županija",
-        "grad": "Vis",
+        "grad": "Rogačić",
         "latitude": "43.0781",
-        "longitude": "16.1779",
-        "praviGrad": "Rogačić"
+        "longitude": "16.1779"
     },
     {
         "id": "1070712150317990364",
@@ -914,8 +867,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Omiš",
         "latitude": "43.44",
-        "longitude": "16.6996",
-        "praviGrad": "Omiš"
+        "longitude": "16.6996"
     },
     {
         "id": "23352758",
@@ -932,8 +884,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5076",
-        "longitude": "16.4432",
-        "praviGrad": "Split"
+        "longitude": "16.4432"
     },
     {
         "id": "19636747",
@@ -950,8 +901,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.5083",
-        "longitude": "16.4332",
-        "praviGrad": "Split"
+        "longitude": "16.4332"
     },
     {
         "id": "6611470",
@@ -968,8 +918,7 @@
         "županija": "Splitsko-dalmatinska županija",
         "grad": "Podstrana",
         "latitude": "43.4817",
-        "longitude": "16.5566",
-        "praviGrad": "Podstrana"
+        "longitude": "16.5566"
     },
     {
         "id": "1184687018824570953",
@@ -986,8 +935,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.059",
-        "longitude": "14.5378",
-        "praviGrad": "Krk"
+        "longitude": "14.5378"
     },
     {
         "id": "1162208649597900726",
@@ -1004,8 +952,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Novi Vinodolski",
         "latitude": "45.138",
-        "longitude": "14.7526",
-        "praviGrad": "Novi Vinodolski"
+        "longitude": "14.7526"
     },
     {
         "id": "13253519",
@@ -1022,8 +969,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Crikvenica",
         "latitude": "45.1778",
-        "longitude": "14.6913",
-        "praviGrad": "Crikvenica"
+        "longitude": "14.6913"
     },
     {
         "id": "19728912",
@@ -1040,8 +986,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.0276",
-        "longitude": "14.5859",
-        "praviGrad": "Krk"
+        "longitude": "14.5859"
     },
     {
         "id": "3050936",
@@ -1058,8 +1003,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Crikvenica",
         "latitude": "45.17337",
-        "longitude": "14.69985",
-        "praviGrad": "Crikvenica"
+        "longitude": "14.69985"
     },
     {
         "id": "1180704698745208133",
@@ -1074,10 +1018,9 @@
         "host_name": "Fran",
         "host_rating": "5",
         "županija": "Ličko-senjska županija",
-        "grad": "Senj",
+        "grad": "Jablanac",
         "latitude": "44.7344",
-        "longitude": "14.8982",
-        "praviGrad": "Jablanac"
+        "longitude": "14.8982"
     },
     {
         "id": "46642264",
@@ -1092,10 +1035,9 @@
         "host_name": "Marko",
         "host_rating": "4,92",
         "županija": "Karlovačka županija",
-        "grad": "Ogulin",
+        "grad": "Jasenak",
         "latitude": "45.256",
-        "longitude": "15.01726",
-        "praviGrad": "Jasenak"
+        "longitude": "15.01726"
     },
     {
         "id": "886680399335739817",
@@ -1112,8 +1054,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Vrbnik",
         "latitude": "45.0757",
-        "longitude": "14.6763",
-        "praviGrad": "Vrbnik"
+        "longitude": "14.6763"
     },
     {
         "id": "46774202",
@@ -1128,10 +1069,9 @@
         "host_name": "Marko",
         "host_rating": "4,92",
         "županija": "Karlovačka županija",
-        "grad": "Ogulin",
+        "grad": "Jasenak",
         "latitude": "45.2552",
-        "longitude": "15.01572",
-        "praviGrad": "Jasenak"
+        "longitude": "15.01572"
     },
     {
         "id": "31523231",
@@ -1148,8 +1088,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Bakar",
         "latitude": "45.3066",
-        "longitude": "14.5339",
-        "praviGrad": "Bakar"
+        "longitude": "14.5339"
     },
     {
         "id": "931888559796184064",
@@ -1164,10 +1103,9 @@
         "host_name": "Magda",
         "host_rating": "5",
         "županija": "Primorsko-goranska županija",
-        "grad": "Krk",
+        "grad": "Kornić",
         "latitude": "45.04838",
-        "longitude": "14.61473",
-        "praviGrad": "Kornić"
+        "longitude": "14.61473"
     },
     {
         "id": "22348506",
@@ -1184,8 +1122,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Delnice",
         "latitude": "45.38",
-        "longitude": "14.8342",
-        "praviGrad": "Delnice"
+        "longitude": "14.8342"
     },
     {
         "id": "23086134",
@@ -1200,10 +1137,9 @@
         "host_name": "Zdravko",
         "host_rating": "5",
         "županija": "Primorsko-goranska županija",
-        "grad": "Krk",
+        "grad": "Kornić",
         "latitude": "45.04346",
-        "longitude": "14.61047",
-        "praviGrad": "Kornić"
+        "longitude": "14.61047"
     },
     {
         "id": "24215128",
@@ -1218,10 +1154,9 @@
         "host_name": "Gordana",
         "host_rating": "4,97",
         "županija": "Primorsko-goranska županija",
-        "grad": "Omišalj",
+        "grad": "Njivice",
         "latitude": "45.15374",
-        "longitude": "14.53778",
-        "praviGrad": "Njivice"
+        "longitude": "14.53778"
     },
     {
         "id": "50169553",
@@ -1236,10 +1171,9 @@
         "host_name": "Jadranka",
         "host_rating": "4,95",
         "županija": "Primorsko-goranska županija",
-        "grad": "Brod Moravice",
+        "grad": "Donja Dobra",
         "latitude": "45.45562",
-        "longitude": "14.97576",
-        "praviGrad": "Donja Dobra"
+        "longitude": "14.97576"
     },
     {
         "id": "26520784",
@@ -1256,8 +1190,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Crikvenica",
         "latitude": "45.1664",
-        "longitude": "14.7073",
-        "praviGrad": "Crikvenica"
+        "longitude": "14.7073"
     },
     {
         "id": "20756563",
@@ -1274,8 +1207,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.0263",
-        "longitude": "14.5712",
-        "praviGrad": "Krk"
+        "longitude": "14.5712"
     },
     {
         "id": "28330148",
@@ -1292,8 +1224,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Vrbnik",
         "latitude": "45.07727",
-        "longitude": "14.67218",
-        "praviGrad": "Vrbnik"
+        "longitude": "14.67218"
     },
     {
         "id": "34264327",
@@ -1310,8 +1241,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.0281",
-        "longitude": "14.5808",
-        "praviGrad": "Krk"
+        "longitude": "14.5808"
     },
     {
         "id": "8271425",
@@ -1326,10 +1256,9 @@
         "host_name": "Mara",
         "host_rating": "4,93",
         "županija": "Primorsko-goranska županija",
-        "grad": "Dobrinj",
+        "grad": "Polje",
         "latitude": "45.13454",
-        "longitude": "14.64629",
-        "praviGrad": "Polje"
+        "longitude": "14.64629"
     },
     {
         "id": "1184687018824570953",
@@ -1346,8 +1275,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.059",
-        "longitude": "14.5378",
-        "praviGrad": "Krk"
+        "longitude": "14.5378"
     },
     {
         "id": "43878619",
@@ -1364,8 +1292,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Baška",
         "latitude": "44.9703",
-        "longitude": "14.7552",
-        "praviGrad": "Baška"
+        "longitude": "14.7552"
     },
     {
         "id": "618002796147859715",
@@ -1380,10 +1307,9 @@
         "host_name": "Marino",
         "host_rating": "4,93",
         "županija": "Primorsko-goranska županija",
-        "grad": "Krk",
+        "grad": "Pinezići",
         "latitude": "45.0338",
-        "longitude": "14.5109",
-        "praviGrad": "Pinezići"
+        "longitude": "14.5109"
     },
     {
         "id": "13401243",
@@ -1400,8 +1326,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Vrbnik",
         "latitude": "45.07705",
-        "longitude": "14.67364",
-        "praviGrad": "Vrbnik"
+        "longitude": "14.67364"
     },
     {
         "id": "650738310901520454",
@@ -1418,8 +1343,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Mali Lošinj",
         "latitude": "44.52549",
-        "longitude": "14.48606",
-        "praviGrad": "Mali Lošinj"
+        "longitude": "14.48606"
     },
     {
         "id": "638774207176239091",
@@ -1434,10 +1358,9 @@
         "host_name": "Ante",
         "host_rating": "4,83",
         "županija": "Primorsko-goranska županija",
-        "grad": "Fužine",
+        "grad": "Lič",
         "latitude": "45.277",
-        "longitude": "14.71731",
-        "praviGrad": "Lič"
+        "longitude": "14.71731"
     },
     {
         "id": "932615276362153597",
@@ -1452,10 +1375,9 @@
         "host_name": "Nevio",
         "host_rating": "4,97",
         "županija": "Primorsko-goranska županija",
-        "grad": "Krk",
+        "grad": "krk Croatia ",
         "latitude": "45.0576",
-        "longitude": "14.5352",
-        "praviGrad": "krk Croatia "
+        "longitude": "14.5352"
     },
     {
         "id": "37805005",
@@ -1470,10 +1392,9 @@
         "host_name": "Dejan",
         "host_rating": "4,89",
         "županija": "Primorsko-goranska županija",
-        "grad": "Dobrinj",
+        "grad": "Hlapa",
         "latitude": "45.13676",
-        "longitude": "14.6223",
-        "praviGrad": "Hlapa"
+        "longitude": "14.6223"
     },
     {
         "id": "50691544",
@@ -1490,8 +1411,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Crikvenica",
         "latitude": "45.17436",
-        "longitude": "14.70428",
-        "praviGrad": "Crikvenica"
+        "longitude": "14.70428"
     },
     {
         "id": "1069666949624334494",
@@ -1508,8 +1428,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Crikvenica",
         "latitude": "45.1668",
-        "longitude": "14.7102",
-        "praviGrad": "Crikvenica"
+        "longitude": "14.7102"
     },
     {
         "id": "22811482",
@@ -1526,8 +1445,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.03113",
-        "longitude": "14.56643",
-        "praviGrad": "Krk"
+        "longitude": "14.56643"
     },
     {
         "id": "1283443439722918283",
@@ -1544,8 +1462,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Fužine",
         "latitude": "45.3063",
-        "longitude": "14.715",
-        "praviGrad": "Fužine"
+        "longitude": "14.715"
     },
     {
         "id": "681228760265907782",
@@ -1560,10 +1477,9 @@
         "host_name": "Vedrana",
         "host_rating": "4,9",
         "županija": "Primorsko-goranska županija",
-        "grad": "Ravna Gora",
+        "grad": "Stari Laz",
         "latitude": "45.3612",
-        "longitude": "14.8777",
-        "praviGrad": "Stari Laz"
+        "longitude": "14.8777"
     },
     {
         "id": "681847750766524798",
@@ -1578,10 +1494,9 @@
         "host_name": "Tamara",
         "host_rating": "4,76",
         "županija": "Primorsko-goranska županija",
-        "grad": "Crikvenica",
+        "grad": "Dramalj",
         "latitude": "45.20468",
-        "longitude": "14.66033",
-        "praviGrad": "Dramalj"
+        "longitude": "14.66033"
     },
     {
         "id": "1158806062785925364",
@@ -1596,10 +1511,9 @@
         "host_name": "Petar",
         "host_rating": "5",
         "županija": "Ličko-senjska županija",
-        "grad": "Otočac",
+        "grad": "Kuterevo",
         "latitude": "44.8277",
-        "longitude": "15.138",
-        "praviGrad": "Kuterevo"
+        "longitude": "15.138"
     },
     {
         "id": "54304244",
@@ -1616,8 +1530,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.02336",
-        "longitude": "14.5721",
-        "praviGrad": "Krk"
+        "longitude": "14.5721"
     },
     {
         "id": "1056491138185321785",
@@ -1634,8 +1547,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Mrkopalj",
         "latitude": "45.32479",
-        "longitude": "14.86341",
-        "praviGrad": "Mrkopalj"
+        "longitude": "14.86341"
     },
     {
         "id": "753302741112241446",
@@ -1652,8 +1564,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Bakar",
         "latitude": "45.30649",
-        "longitude": "14.53439",
-        "praviGrad": "Bakar"
+        "longitude": "14.53439"
     },
     {
         "id": "673762279983175352",
@@ -1670,8 +1581,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Baška",
         "latitude": "44.9711",
-        "longitude": "14.7285",
-        "praviGrad": "Baška"
+        "longitude": "14.7285"
     },
     {
         "id": "698982782233322190",
@@ -1688,8 +1598,7 @@
         "županija": "Ličko-senjska županija",
         "grad": "Senj",
         "latitude": "45.00084",
-        "longitude": "14.89787",
-        "praviGrad": "Senj"
+        "longitude": "14.89787"
     },
     {
         "id": "678309765688895095",
@@ -1704,10 +1613,9 @@
         "host_name": "Stjepan",
         "host_rating": "4,85",
         "županija": "Karlovačka županija",
-        "grad": "Ogulin",
+        "grad": "Sabljak Selo",
         "latitude": "45.2304",
-        "longitude": "15.2208",
-        "praviGrad": "Sabljak Selo"
+        "longitude": "15.2208"
     },
     {
         "id": "44199902",
@@ -1724,8 +1632,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Krk",
         "latitude": "45.0304",
-        "longitude": "14.56645",
-        "praviGrad": "Krk"
+        "longitude": "14.56645"
     },
     {
         "id": "40343362",
@@ -1740,10 +1647,9 @@
         "host_name": "Lorena",
         "host_rating": "5",
         "županija": "Primorsko-goranska županija",
-        "grad": "Ogulin",
+        "grad": "Salopek Selo",
         "latitude": "45.2376",
-        "longitude": "15.2151",
-        "praviGrad": "Salopek Selo"
+        "longitude": "15.2151"
     },
     {
         "id": "853324697426023355",
@@ -1758,10 +1664,9 @@
         "host_name": "Smiljana",
         "host_rating": "5",
         "županija": "Primorsko-goranska županija",
-        "grad": "Dobrinj",
+        "grad": "Klimno",
         "latitude": "45.15851",
-        "longitude": "14.62241",
-        "praviGrad": "Klimno"
+        "longitude": "14.62241"
     },
     {
         "id": "38589764",
@@ -1776,10 +1681,9 @@
         "host_name": "Alen - Interhome Group",
         "host_rating": "4,69",
         "županija": "Primorsko-goranska županija",
-        "grad": "Fužine",
+        "grad": "Lič",
         "latitude": "45.274",
-        "longitude": "14.7138",
-        "praviGrad": "Lič"
+        "longitude": "14.7138"
     },
     {
         "id": "10585648",
@@ -1794,10 +1698,9 @@
         "host_name": "Dragana",
         "host_rating": "4,78",
         "županija": "Primorsko-goranska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Rijeka",
         "latitude": "45.3431",
-        "longitude": "14.4146",
-        "praviGrad": "Rijeka"
+        "longitude": "14.4146"
     },
     {
         "id": "581466575573412480",
@@ -1814,8 +1717,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Punat",
         "latitude": "45.01101",
-        "longitude": "14.62666",
-        "praviGrad": "Punat"
+        "longitude": "14.62666"
     },
     {
         "id": "19704124",
@@ -1830,10 +1732,9 @@
         "host_name": "Nina",
         "host_rating": "4,9",
         "županija": "Primorsko-goranska županija",
-        "grad": "Krk",
+        "grad": "Pinezići",
         "latitude": "45.04396",
-        "longitude": "14.48",
-        "praviGrad": "Pinezići"
+        "longitude": "14.48"
     },
     {
         "id": "18426839",
@@ -1850,8 +1751,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Kraljevica",
         "latitude": "45.2621",
-        "longitude": "14.5684",
-        "praviGrad": "Kraljevica"
+        "longitude": "14.5684"
     },
     {
         "id": "44695082",
@@ -1866,10 +1766,9 @@
         "host_name": "Rok",
         "host_rating": "4,97",
         "županija": "Primorsko-goranska županija",
-        "grad": "Malinska-Dubašnica",
+        "grad": "Sveti Ivan",
         "latitude": "45.0998",
-        "longitude": "14.5273",
-        "praviGrad": "Sveti Ivan"
+        "longitude": "14.5273"
     },
     {
         "id": "45469274",
@@ -1884,10 +1783,9 @@
         "host_name": "Perica",
         "host_rating": "5",
         "županija": "Primorsko-goranska županija",
-        "grad": "Malinska-Dubašnica",
+        "grad": "Malinska",
         "latitude": "45.1171",
-        "longitude": "14.5151",
-        "praviGrad": "Malinska"
+        "longitude": "14.5151"
     },
     {
         "id": "612133919188444729",
@@ -1902,10 +1800,9 @@
         "host_name": "Maria",
         "host_rating": "4,91",
         "županija": "Ličko-senjska županija",
-        "grad": "Senj",
+        "grad": "Sveta Jelena",
         "latitude": "45.01308",
-        "longitude": "14.89273",
-        "praviGrad": "Sveta Jelena"
+        "longitude": "14.89273"
     },
     {
         "id": "33519541",
@@ -1922,8 +1819,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Lokve",
         "latitude": "45.3743",
-        "longitude": "14.6589",
-        "praviGrad": "Lokve"
+        "longitude": "14.6589"
     },
     {
         "id": "19351576",
@@ -1940,8 +1836,7 @@
         "županija": "Primorsko-goranska županija",
         "grad": "Crikvenica",
         "latitude": "45.1742",
-        "longitude": "14.7029",
-        "praviGrad": "Crikvenica"
+        "longitude": "14.7029"
     },
     {
         "id": "47724316",
@@ -1958,8 +1853,7 @@
         "županija": "Istarska županija",
         "grad": "Sveti Petar u Šumi",
         "latitude": "45.17833",
-        "longitude": "13.86608",
-        "praviGrad": "Sveti Petar u Šumi"
+        "longitude": "13.86608"
     },
     {
         "id": "1016460914095185133",
@@ -1974,10 +1868,9 @@
         "host_name": "Novasol",
         "host_rating": "4,47",
         "županija": "Istarska županija",
-        "grad": "Vrsar",
+        "grad": "Flengi",
         "latitude": "45.1644",
-        "longitude": "13.6626",
-        "praviGrad": "Flengi"
+        "longitude": "13.6626"
     },
     {
         "id": "34834536",
@@ -1994,8 +1887,7 @@
         "županija": "Istarska županija",
         "grad": "Rovinj",
         "latitude": "45.0833",
-        "longitude": "13.63317",
-        "praviGrad": "Rovinj"
+        "longitude": "13.63317"
     },
     {
         "id": "51504766",
@@ -2012,8 +1904,7 @@
         "županija": "Istarska županija",
         "grad": "Bale",
         "latitude": "45.0413",
-        "longitude": "13.7872",
-        "praviGrad": "Bale"
+        "longitude": "13.7872"
     },
     {
         "id": "34734444",
@@ -2028,10 +1919,9 @@
         "host_name": "Stanko",
         "host_rating": "4,94",
         "županija": "Istarska županija",
-        "grad": "Svetvinčenat",
+        "grad": "Foli",
         "latitude": "45.0984",
-        "longitude": "13.9181",
-        "praviGrad": "Foli"
+        "longitude": "13.9181"
     },
     {
         "id": "35892051",
@@ -2048,8 +1938,7 @@
         "županija": "Istarska županija",
         "grad": "Pazin",
         "latitude": "45.2255",
-        "longitude": "13.95822",
-        "praviGrad": "Pazin"
+        "longitude": "13.95822"
     },
     {
         "id": "907325345098849506",
@@ -2064,10 +1953,9 @@
         "host_name": "Nenad",
         "host_rating": "4,98",
         "županija": "Istarska županija",
-        "grad": "Svetvinčenat",
+        "grad": "Bokordići",
         "latitude": "45.064",
-        "longitude": "13.9106",
-        "praviGrad": "Bokordići"
+        "longitude": "13.9106"
     },
     {
         "id": "29840371",
@@ -2082,10 +1970,9 @@
         "host_name": "Iva",
         "host_rating": "4,92",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.89476",
-        "longitude": "13.81286",
-        "praviGrad": "Pula"
+        "longitude": "13.81286"
     },
     {
         "id": "12885785",
@@ -2102,8 +1989,7 @@
         "županija": "Istarska županija",
         "grad": "Rovinj",
         "latitude": "45.0764",
-        "longitude": "13.6544",
-        "praviGrad": "Rovinj"
+        "longitude": "13.6544"
     },
     {
         "id": "1027545577097887626",
@@ -2118,10 +2004,9 @@
         "host_name": "Tamara",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Marčana",
+        "grad": "Belavići",
         "latitude": "45.0002",
-        "longitude": "14.002",
-        "praviGrad": "Belavići"
+        "longitude": "14.002"
     },
     {
         "id": "44416312",
@@ -2136,10 +2021,9 @@
         "host_name": "Elvis",
         "host_rating": "4,98",
         "županija": "Istarska županija",
-        "grad": "Novigrad",
+        "grad": "Dajla",
         "latitude": "45.3511",
-        "longitude": "13.5472",
-        "praviGrad": "Dajla"
+        "longitude": "13.5472"
     },
     {
         "id": "1181918354486631516",
@@ -2154,10 +2038,9 @@
         "host_name": "Anđela",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Kanfanar",
+        "grad": "Barat",
         "latitude": "45.1528",
-        "longitude": "13.81851",
-        "praviGrad": "Barat"
+        "longitude": "13.81851"
     },
     {
         "id": "49037012",
@@ -2174,8 +2057,7 @@
         "županija": "Istarska županija",
         "grad": "Novigrad",
         "latitude": "45.3321",
-        "longitude": "13.57949",
-        "praviGrad": "Novigrad"
+        "longitude": "13.57949"
     },
     {
         "id": "43857784",
@@ -2192,8 +2074,7 @@
         "županija": "Istarska županija",
         "grad": "Kanfanar",
         "latitude": "45.12141",
-        "longitude": "13.83895",
-        "praviGrad": "Kanfanar"
+        "longitude": "13.83895"
     },
     {
         "id": "1182373368368239976",
@@ -2208,10 +2089,9 @@
         "host_name": "Helena",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Tinjan",
+        "grad": "Muntrilj",
         "latitude": "45.2426",
-        "longitude": "13.807",
-        "praviGrad": "Muntrilj"
+        "longitude": "13.807"
     },
     {
         "id": "1155802180523794515",
@@ -2226,10 +2106,9 @@
         "host_name": "Tina",
         "host_rating": "4,91",
         "županija": "Istarska županija",
-        "grad": "Labin",
+        "grad": "Rabac",
         "latitude": "45.0806",
-        "longitude": "14.1551",
-        "praviGrad": "Rabac"
+        "longitude": "14.1551"
     },
     {
         "id": "35892051",
@@ -2246,8 +2125,7 @@
         "županija": "Istarska županija",
         "grad": "Pazin",
         "latitude": "45.2255",
-        "longitude": "13.95822",
-        "praviGrad": "Pazin"
+        "longitude": "13.95822"
     },
     {
         "id": "6586032",
@@ -2262,10 +2140,9 @@
         "host_name": "Tea",
         "host_rating": "4,97",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8593",
-        "longitude": "13.8235",
-        "praviGrad": "Pula"
+        "longitude": "13.8235"
     },
     {
         "id": "44536434",
@@ -2282,8 +2159,7 @@
         "županija": "Istarska županija",
         "grad": "Svetvinčenat",
         "latitude": "45.09099",
-        "longitude": "13.8443",
-        "praviGrad": "Svetvinčenat"
+        "longitude": "13.8443"
     },
     {
         "id": "1097225791396145585",
@@ -2298,10 +2174,9 @@
         "host_name": "Valentina",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Fažana",
+        "grad": "Valbandon",
         "latitude": "44.91316",
-        "longitude": "13.82849",
-        "praviGrad": "Valbandon"
+        "longitude": "13.82849"
     },
     {
         "id": "34936945",
@@ -2318,8 +2193,7 @@
         "županija": "Istarska županija",
         "grad": "Žminj",
         "latitude": "45.1371",
-        "longitude": "13.8663",
-        "praviGrad": "Žminj"
+        "longitude": "13.8663"
     },
     {
         "id": "29183327",
@@ -2334,10 +2208,9 @@
         "host_name": "Danilo",
         "host_rating": "4,96",
         "županija": "Istarska županija",
-        "grad": "Poreč",
+        "grad": "Štifanići",
         "latitude": "45.20212",
-        "longitude": "13.75407",
-        "praviGrad": "Štifanići"
+        "longitude": "13.75407"
     },
     {
         "id": "43858259",
@@ -2354,8 +2227,7 @@
         "županija": "Istarska županija",
         "grad": "Kanfanar",
         "latitude": "45.12101",
-        "longitude": "13.8384",
-        "praviGrad": "Kanfanar"
+        "longitude": "13.8384"
     },
     {
         "id": "6443651",
@@ -2372,8 +2244,7 @@
         "županija": "Istarska županija",
         "grad": "Medulin",
         "latitude": "44.82444",
-        "longitude": "13.93426",
-        "praviGrad": "Medulin"
+        "longitude": "13.93426"
     },
     {
         "id": "896829968985929955",
@@ -2388,10 +2259,9 @@
         "host_name": "Karolina",
         "host_rating": "4,94",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.85499",
-        "longitude": "13.8383",
-        "praviGrad": "Pula"
+        "longitude": "13.8383"
     },
     {
         "id": "1147759811950328266",
@@ -2406,10 +2276,9 @@
         "host_name": "Željko I Zorica",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Medulin",
+        "grad": "Banjole",
         "latitude": "44.82093",
-        "longitude": "13.8635",
-        "praviGrad": "Banjole"
+        "longitude": "13.8635"
     },
     {
         "id": "27524643",
@@ -2424,10 +2293,9 @@
         "host_name": "Dubravka",
         "host_rating": "4,91",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8718",
-        "longitude": "13.8526",
-        "praviGrad": "Pula"
+        "longitude": "13.8526"
     },
     {
         "id": "16048314",
@@ -2442,10 +2310,9 @@
         "host_name": "Tina",
         "host_rating": "4,91",
         "županija": "Istarska županija",
-        "grad": "Labin",
+        "grad": "Rabac",
         "latitude": "45.0809",
-        "longitude": "14.1583",
-        "praviGrad": "Rabac"
+        "longitude": "14.1583"
     },
     {
         "id": "831125853465137778",
@@ -2460,10 +2327,9 @@
         "host_name": "Ivan",
         "host_rating": "4,96",
         "županija": "Istarska županija",
-        "grad": "Marčana",
+        "grad": "Peruški",
         "latitude": "44.94737",
-        "longitude": "14.01612",
-        "praviGrad": "Peruški"
+        "longitude": "14.01612"
     },
     {
         "id": "50048060",
@@ -2478,10 +2344,9 @@
         "host_name": "Elvis",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Oprtalj",
+        "grad": "Ipši",
         "latitude": "45.3679",
-        "longitude": "13.8494",
-        "praviGrad": "Ipši"
+        "longitude": "13.8494"
     },
     {
         "id": "35514341",
@@ -2496,10 +2361,9 @@
         "host_name": "Branko",
         "host_rating": "4,96",
         "županija": "Istarska županija",
-        "grad": "Brtonigla",
+        "grad": "Nova Vas",
         "latitude": "45.37823",
-        "longitude": "13.64538",
-        "praviGrad": "Nova Vas"
+        "longitude": "13.64538"
     },
     {
         "id": "689782622391539629",
@@ -2516,8 +2380,7 @@
         "županija": "Istarska županija",
         "grad": "Umag",
         "latitude": "45.4047",
-        "longitude": "13.5305",
-        "praviGrad": "Umag"
+        "longitude": "13.5305"
     },
     {
         "id": "22409663",
@@ -2534,8 +2397,7 @@
         "županija": "Istarska županija",
         "grad": "Motovun",
         "latitude": "45.33543",
-        "longitude": "13.82825",
-        "praviGrad": "Motovun"
+        "longitude": "13.82825"
     },
     {
         "id": "668845909796339616",
@@ -2552,8 +2414,7 @@
         "županija": "Istarska županija",
         "grad": "Sveti Petar u Šumi",
         "latitude": "45.17812",
-        "longitude": "13.86512",
-        "praviGrad": "Sveti Petar u Šumi"
+        "longitude": "13.86512"
     },
     {
         "id": "8481614",
@@ -2568,10 +2429,9 @@
         "host_name": "Željko",
         "host_rating": "4,57",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.89479",
-        "longitude": "13.81199",
-        "praviGrad": "Pula"
+        "longitude": "13.81199"
     },
     {
         "id": "739084966203111335",
@@ -2586,10 +2446,9 @@
         "host_name": "Deni",
         "host_rating": "4,88",
         "županija": "Istarska županija",
-        "grad": "Kršan",
+        "grad": "Plomin Luka",
         "latitude": "45.1343",
-        "longitude": "14.1762",
-        "praviGrad": "Plomin Luka"
+        "longitude": "14.1762"
     },
     {
         "id": "13691379",
@@ -2606,8 +2465,7 @@
         "županija": "Istarska županija",
         "grad": "Umag",
         "latitude": "45.42451",
-        "longitude": "13.60251",
-        "praviGrad": "Umag"
+        "longitude": "13.60251"
     },
     {
         "id": "17419114",
@@ -2624,8 +2482,7 @@
         "županija": "Istarska županija",
         "grad": "Barban",
         "latitude": "45.06523",
-        "longitude": "14.0108",
-        "praviGrad": "Barban"
+        "longitude": "14.0108"
     },
     {
         "id": "851557977557356035",
@@ -2640,10 +2497,9 @@
         "host_name": "Hana",
         "host_rating": "4,86",
         "županija": "Istarska županija",
-        "grad": "Poreč",
+        "grad": "Mugeba",
         "latitude": "45.209",
-        "longitude": "13.6127",
-        "praviGrad": "Mugeba"
+        "longitude": "13.6127"
     },
     {
         "id": "37032053",
@@ -2660,8 +2516,7 @@
         "županija": "Istarska županija",
         "grad": "Gračišće",
         "latitude": "45.21206",
-        "longitude": "14.02449",
-        "praviGrad": "Gračišće"
+        "longitude": "14.02449"
     },
     {
         "id": "642435876609724042",
@@ -2678,8 +2533,7 @@
         "županija": "Istarska županija",
         "grad": "Rovinj",
         "latitude": "45.0639",
-        "longitude": "13.6889",
-        "praviGrad": "Rovinj"
+        "longitude": "13.6889"
     },
     {
         "id": "41171450",
@@ -2694,10 +2548,9 @@
         "host_name": "Andrea",
         "host_rating": "4,96",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8559",
-        "longitude": "13.8325",
-        "praviGrad": "Pula"
+        "longitude": "13.8325"
     },
     {
         "id": "678185473394172100",
@@ -2714,8 +2567,7 @@
         "županija": "Istarska županija",
         "grad": "Vrsar",
         "latitude": "45.1618",
-        "longitude": "13.6098",
-        "praviGrad": "Vrsar"
+        "longitude": "13.6098"
     },
     {
         "id": "620906234446732266",
@@ -2730,10 +2582,9 @@
         "host_name": "Samanta",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Labin",
+        "grad": "Rabac",
         "latitude": "45.0784",
-        "longitude": "14.1568",
-        "praviGrad": "Rabac"
+        "longitude": "14.1568"
     },
     {
         "id": "1153565550947879494",
@@ -2748,10 +2599,9 @@
         "host_name": "Tonči",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Pazin",
+        "grad": "Bertoši",
         "latitude": "45.2237",
-        "longitude": "13.9163",
-        "praviGrad": "Bertoši"
+        "longitude": "13.9163"
     },
     {
         "id": "1202691000676832849",
@@ -2768,8 +2618,7 @@
         "županija": "Istarska županija",
         "grad": "Rovinj",
         "latitude": "45.08821",
-        "longitude": "13.64925",
-        "praviGrad": "Rovinj"
+        "longitude": "13.64925"
     },
     {
         "id": "43857784",
@@ -2786,8 +2635,7 @@
         "županija": "Istarska županija",
         "grad": "Kanfanar",
         "latitude": "45.12141",
-        "longitude": "13.83895",
-        "praviGrad": "Kanfanar"
+        "longitude": "13.83895"
     },
     {
         "id": "880879800159785029",
@@ -2802,10 +2650,9 @@
         "host_name": "Marija",
         "host_rating": "4,95",
         "županija": "Istarska županija",
-        "grad": "Medulin",
+        "grad": "Vinkuran",
         "latitude": "44.8351",
-        "longitude": "13.8631",
-        "praviGrad": "Vinkuran"
+        "longitude": "13.8631"
     },
     {
         "id": "928924667362930069",
@@ -2820,10 +2667,9 @@
         "host_name": "Marina",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Cerovlje",
+        "grad": "Draguć",
         "latitude": "45.3322",
-        "longitude": "14.0037",
-        "praviGrad": "Draguć"
+        "longitude": "14.0037"
     },
     {
         "id": "7233066",
@@ -2838,10 +2684,9 @@
         "host_name": "Sara",
         "host_rating": "4,98",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8591",
-        "longitude": "13.8237",
-        "praviGrad": "Pula"
+        "longitude": "13.8237"
     },
     {
         "id": "673098097503011335",
@@ -2858,8 +2703,7 @@
         "županija": "Istarska županija",
         "grad": "Labin",
         "latitude": "45.10363",
-        "longitude": "14.12225",
-        "praviGrad": "Labin"
+        "longitude": "14.12225"
     },
     {
         "id": "3268869",
@@ -2876,8 +2720,7 @@
         "županija": "Istarska županija",
         "grad": "Pićan",
         "latitude": "45.20356",
-        "longitude": "14.04157",
-        "praviGrad": "Pićan"
+        "longitude": "14.04157"
     },
     {
         "id": "20930710",
@@ -2892,10 +2735,9 @@
         "host_name": "Ana",
         "host_rating": "5",
         "županija": "Istarska županija",
-        "grad": "Vodnjan",
+        "grad": "Peroj",
         "latitude": "44.9455",
-        "longitude": "13.7924",
-        "praviGrad": "Peroj"
+        "longitude": "13.7924"
     },
     {
         "id": "29580635",
@@ -2910,9 +2752,84 @@
         "host_name": "Samanta",
         "host_rating": "4,7",
         "županija": "Istarska županija",
-        "grad": "Tar-Vabriga",
+        "grad": "Tar",
         "latitude": "45.30188",
-        "longitude": "13.62394",
-        "praviGrad": "Tar"
+        "longitude": "13.62394"
     }
 ]
+
+import requests
+import re
+
+def get_municipality_or_town(lat, lon):
+    url = "https://nominatim.openstreetmap.org/reverse"
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "format": "json",
+        "addressdetails": 1
+    }
+    headers = {
+        "User-Agent": "Script/1.0 (juricacizic@gmail.com)"
+    }
+
+    try:
+        response = requests.get(url, params=params, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+
+        address = data.get("address", {})
+        municipality = address.get("municipality")
+        town = address.get("town")
+
+        if municipality:
+            return municipality.replace("Općina ", "").replace("Grad ", "").strip()
+        elif town:
+            return town.replace("Grad ", "").strip()
+        else:
+            display_name = data.get("display_name", "")
+            
+            match = re.search(r'Općina\s+([^,]+)', display_name)
+            if match:
+                return f"{match.group(1)}"
+            else:
+                return 0
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+    
+def get_detailed_info(lat, lon):
+    url = "https://nominatim.openstreetmap.org/reverse"
+    params = {
+        "lat": lat,
+        "lon": lon,
+        "format": "json",
+        "addressdetails": 1
+    }
+    headers = {
+        "User-Agent": "Script/1.0 (juricacizic@gmail.com)"
+    }
+
+    try:
+        response = requests.get(url, params=params, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+
+        return data
+    except requests.RequestException as e:
+        return f"Error: {e}"
+
+for listing in info:
+    trenutniGrad = listing["grad"]
+    opcina = get_municipality_or_town(listing["latitude"], listing["longitude"])
+    listing["praviGrad"] = trenutniGrad
+    if opcina != 0:
+        listing["grad"] = opcina
+    else:
+        listing["grad"] = "Nije pronađeno ime općine"
+    print(listing, "\n\n")
+
+with open("listingsDetails.json", "w", encoding="utf-8") as f:
+    json.dump(info, f, ensure_ascii=False, indent=4)
+
+print("Data saved to listingsDetails.json")
