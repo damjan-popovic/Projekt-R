@@ -48,11 +48,16 @@ document.addEventListener("DOMContentLoaded", function () {
         let g_arating = document.getElementById("g_arating").value || 5;
         let d_hrating = document.getElementById("d_hrating").value || 0;
         let g_hrating = document.getElementById("g_hrating").value || 5;
+        let selectedCounty = document.getElementById("selectedCounty").value || 'nijedno';
+        let selectedSubregion = document.getElementById("selectedSubregion").value || 'nijedno';
 
+        console.log(selectedCounty, selectedSubregion)
         fetch('http://localhost:3000/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                selectedCounty,
+                selectedSubregion,
                 d_price, g_price, 
                 d_rooms, g_rooms, 
                 d_capacity, g_capacity, 
@@ -93,43 +98,135 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error('Error fetching data:', error));
     });
 
-fetch('static/gadm41_HRV_1.json')
-    .then(response => response.json())
-    .then(data => {
-        function styleFeature(feature) {
-            return {
-                className: `${feature.properties.NAME_1.replace(/\s+/g, '-')}`,
-                color: "blue",
-                weight: 2,
-                fillOpacity: 0.2
-            };
+    let geojsonLayer, subGeojsonLayer;
+
+    function styleFeature(feature) {
+        return {
+            className: `${feature.properties.NAME_1.replace(/\s+/g, '-')}`,
+            color: "blue",
+            weight: 2,
+            fillOpacity: 0.2
+        };
+    }
+
+    function highlightFeature(e) {
+        let layer = e.target;
+        layer.setStyle({
+            fillOpacity: 0.6,
+            weight: 3,
+            color: "darkblue"
+        });
+    }
+
+    function resetHighlight(e) {
+        geojsonLayer.resetStyle(e.target);
+    }
+
+    function highlightSubFeature(e) {
+        let layer = e.target;
+        layer.setStyle({
+            fillOpacity: 0.6,
+            weight: 3,
+            color: "darkred"
+        });
+    }
+
+    function resetSubHighlight(e) {
+        subGeojsonLayer.resetStyle(e.target);
+    }
+
+    function loadSubRegions(countyName) {
+        if (subGeojsonLayer) {
+            map.removeLayer(subGeojsonLayer);
         }
+        document.getElementById("selectedCounty").value = countyName;
+
+        fetch(`static/gadm41_HRV_2.json`)
+            .then(response => response.json())
+            .then(data => {
+                let filteredData = {
+                    type: "FeatureCollection",
+                    features: data.features.filter(f => f.properties.NAME_1 === countyName)
+                };
+
+                subGeojsonLayer = L.geoJSON(filteredData, {
+                    style: {
+                        color: "red",
+                        weight: 2,
+                        fillOpacity: 0.3
+                    },
+                    onEachFeature: function (feature, layer) {
+                        let subcentar = layer.getBounds().getCenter();
+                        
+                        layer.on({
+                            mouseover: function (e) {
+                                let tooltip = L.tooltip({
+                                    permanent: false,
+                                    direction: "top",
+                                    className: "subregion-tooltip"
+                                })
+                                    .setContent(`<b>${feature.properties.NAME_2}</b>`)
+                                    .setLatLng(subcentar)
+                                    .addTo(map);
     
-        function highlightFeature(e) {
-            let layer = e.target;
-            layer.setStyle({
-                fillOpacity: 0.6,
-                weight: 3,
-                color: "darkblue"
-            });
-        }
+                                layer.on("mouseout", function () {
+                                    map.removeLayer(tooltip);
+                                });
     
-        function resetHighlight(e) {
-            geojsonLayer.resetStyle(e.target);
-        }
+                                highlightSubFeature(e);
+                            },
+                            mouseout: resetSubHighlight,
     
-        function onEachFeature(feature, layer) {
-            layer.bindPopup(`<b>${feature.properties.NAME_1}</b>`);
-            layer.on({
-                mouseover: highlightFeature,
-                mouseout: resetHighlight
-            });
-        }
+                            // Zoom in further on subregion click
+                            click: function () {
+                                document.getElementById("selectedSubregion").value = feature.properties.NAME_2;
+                                let bounds = layer.getBounds();
+                                map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+                            }
+                        });
+                    }
+                }).addTo(map);
+                
+                let bounds = L.geoJSON(filteredData).getBounds();
+                map.fitBounds(bounds, { padding: [50, 50] });
+            })
+            .catch(error => console.error('Error loading subregions:', error));
+    }
+
+    function onEachFeature(feature, layer) {
+        let centar = layer.getBounds().getCenter();
     
-        let geojsonLayer = L.geoJSON(data, {
-            style: styleFeature,
-            onEachFeature: onEachFeature
-        }).addTo(map);
-    })
-    .catch(error => console.error('Error loading GeoJSON:', error));
+        layer.on({
+            mouseover: function (e) {
+                let tooltip = L.tooltip({
+                    permanent: false,
+                    direction: "top",
+                    className: "county-tooltip"
+                })
+                .setContent(`<b>${feature.properties.NAME_1}</b>`)
+                .setLatLng(centar)
+                .addTo(map);
+    
+                layer.on("mouseout", function () {
+                    map.removeLayer(tooltip);
+                });
+    
+                highlightFeature(e);
+            },
+            mouseout: resetHighlight,
+            click: function () {
+                loadSubRegions(feature.properties.NAME_1);
+            }
+        });
+    }
+
+    fetch('static/gadm41_HRV_1.json')
+        .then(response => response.json())
+        .then(data => {
+            geojsonLayer = L.geoJSON(data, {
+                style: styleFeature,
+                onEachFeature: onEachFeature
+            }).addTo(map);
+        })
+        .catch(error => console.error('Error loading GeoJSON:', error));
 });
