@@ -12,6 +12,11 @@ def insert_data():
     conn = connect_db()
     cur = conn.cursor()
 
+    cur.execute("""DELETE FROM location;
+                DELETE FROM accommodation;
+                DELETE FROM host;"""
+            )
+
     for listing in listings:
         try:
             accommodation_id = listing["id"]

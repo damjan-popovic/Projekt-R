@@ -125,6 +125,45 @@ app.post("/api/data", async (req, res) => {
     }
 });
 
+app.get("/api/countyAverages", async (req, res) => {
+    try {
+        const query = `
+                SELECT 
+                l.županija,
+                AVG(CAST(REPLACE(a.price, '€', '') AS INTEGER)) AS avg_price,
+                AVG(CAST(REPLACE(a.accrating, ',', '.') AS DECIMAL)) AS avg_rating
+                FROM accommodation a natural join location l
+                WHERE a.price != 'Nema cijene' AND a.accrating != 'Nema'
+                GROUP BY l.županija;
+        `;
+        const result = await pool.query(query);
+        console.log(result.rows)
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).json({ error: "Failed to fetch averages" });
+    }
+});
+
+app.get("/api/subregionAverages", async (req, res) => {
+    try {
+        const query = `
+                SELECT 
+                l.grad,
+                AVG(CAST(REPLACE(a.price, '€', '') AS INTEGER)) AS avg_price,
+                AVG(CAST(REPLACE(a.accrating, ',', '.') AS DECIMAL)) AS avg_rating
+                FROM accommodation a natural join location l
+                WHERE a.price != 'Nema cijene' AND a.accrating != 'Nema'
+                GROUP BY l.grad;
+        `;
+        const result = await pool.query(query);
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Database error:", error);
+        res.status(500).json({ error: "Failed to fetch averages" });
+    }
+});
+
 const path = require("path");
 const clientPath = path.join(__dirname, "client");
 app.use(express.static(clientPath));

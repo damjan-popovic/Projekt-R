@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
             map.removeLayer(subGeojsonLayer);
         }
         document.getElementById("selectedCounty").value = countyName;
-
+    
         fetch(`static/gadm41_HRV_2.json`)
             .then(response => response.json())
             .then(data => {
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     type: "FeatureCollection",
                     features: data.features.filter(f => f.properties.NAME_1 === countyName)
                 };
-
+    
                 subGeojsonLayer = L.geoJSON(filteredData, {
                     style: {
                         color: "red",
@@ -156,7 +156,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
                     onEachFeature: function (feature, layer) {
                         let subcentar = layer.getBounds().getCenter();
-                        
+                        let subregionName = feature.properties.NAME_2;
+                        let avgPrice = subregionAveragesData[subregionName] ? `€${subregionAveragesData[subregionName].avg_price}` : "No data";
+                        let avgRating = subregionAveragesData[subregionName] ? subregionAveragesData[subregionName].avg_rating : "No data";
+    
                         layer.on({
                             mouseover: function (e) {
                                 let tooltip = L.tooltip({
@@ -164,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     direction: "top",
                                     className: "subregion-tooltip"
                                 })
-                                    .setContent(`<b>${feature.properties.NAME_2}</b>`)
+                                    .setContent(`<b>${subregionName}</b><br>Avg Price: ${avgPrice}<br>Avg Rating: ${avgRating}`)
                                     .setLatLng(subcentar)
                                     .addTo(map);
     
@@ -175,34 +178,37 @@ document.addEventListener("DOMContentLoaded", function () {
                                 highlightSubFeature(e);
                             },
                             mouseout: resetSubHighlight,
-    
-                            // Zoom in further on subregion click
                             click: function () {
-                                document.getElementById("selectedSubregion").value = feature.properties.NAME_2;
+                                document.getElementById("selectedSubregion").value = subregionName;
                                 let bounds = layer.getBounds();
                                 map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
                             }
                         });
                     }
                 }).addTo(map);
-                
+    
                 let bounds = L.geoJSON(filteredData).getBounds();
                 map.fitBounds(bounds, { padding: [50, 50] });
             })
             .catch(error => console.error('Error loading subregions:', error));
     }
-
+    
     function onEachFeature(feature, layer) {
         let centar = layer.getBounds().getCenter();
     
         layer.on({
             mouseover: function (e) {
+                let countyName = `${feature.properties.NAME_1} županija`;
+
+                let avgPrice = countyAveragesData[countyName] ? `€${countyAveragesData[countyName].avg_price}` : "No data";
+                let avgRating = countyAveragesData[countyName] ? countyAveragesData[countyName].avg_rating : "No data";
+
                 let tooltip = L.tooltip({
                     permanent: false,
                     direction: "top",
                     className: "county-tooltip"
                 })
-                .setContent(`<b>${feature.properties.NAME_1}</b>`)
+                .setContent(`<b>${countyName}</b><br>Avg Price: ${avgPrice}<br>Avg Rating: ${avgRating}`)
                 .setLatLng(centar)
                 .addTo(map);
     
@@ -218,6 +224,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    let countyAveragesData = {};
+    fetch("http://localhost:3000/api/countyAverages")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(item => {
+                countyAveragesData[item.županija] = {
+                    avg_price: parseFloat(item.avg_price).toFixed(2),
+                    avg_rating: parseFloat(item.avg_rating).toFixed(1)
+                };
+            });
+        })
+        .catch(error => console.error("Error fetching averages:", error));
+
+    let subregionAveragesData = {};
+    fetch("http://localhost:3000/api/subregionAverages")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(item => {
+                subregionAveragesData[item.grad] = {
+                    avg_price: parseFloat(item.avg_price).toFixed(2),
+                    avg_rating: parseFloat(item.avg_rating).toFixed(1)
+                };
+            });
+        })
+        .catch(error => console.error("Error fetching averages:", error));
 
     fetch('static/gadm41_HRV_1.json')
         .then(response => response.json())

@@ -353,7 +353,7 @@
         "host_id": "82882782",
         "host_name": "Smoljo Family",
         "host_rating": "4,89",
-        "županija": "Splitsko-Dalmatinska županija",
+        "županija": "Splitsko-dalmatinska županija",
         "grad": "Split",
         "latitude": "43.50908",
         "longitude": "16.43178",
@@ -1794,7 +1794,7 @@
         "host_name": "Dragana",
         "host_rating": "4,78",
         "županija": "Primorsko-goranska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Rijeka",
         "latitude": "45.3431",
         "longitude": "14.4146",
         "praviGrad": "Rijeka"
@@ -2082,7 +2082,7 @@
         "host_name": "Iva",
         "host_rating": "4,92",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.89476",
         "longitude": "13.81286",
         "praviGrad": "Pula"
@@ -2262,7 +2262,7 @@
         "host_name": "Tea",
         "host_rating": "4,97",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8593",
         "longitude": "13.8235",
         "praviGrad": "Pula"
@@ -2388,7 +2388,7 @@
         "host_name": "Karolina",
         "host_rating": "4,94",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.85499",
         "longitude": "13.8383",
         "praviGrad": "Pula"
@@ -2424,7 +2424,7 @@
         "host_name": "Dubravka",
         "host_rating": "4,91",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8718",
         "longitude": "13.8526",
         "praviGrad": "Pula"
@@ -2568,7 +2568,7 @@
         "host_name": "Željko",
         "host_rating": "4,57",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.89479",
         "longitude": "13.81199",
         "praviGrad": "Pula"
@@ -2694,7 +2694,7 @@
         "host_name": "Andrea",
         "host_rating": "4,96",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8559",
         "longitude": "13.8325",
         "praviGrad": "Pula"
@@ -2838,7 +2838,7 @@
         "host_name": "Sara",
         "host_rating": "4,98",
         "županija": "Istarska županija",
-        "grad": "Nije pronađeno ime općine",
+        "grad": "Pula",
         "latitude": "44.8591",
         "longitude": "13.8237",
         "praviGrad": "Pula"
