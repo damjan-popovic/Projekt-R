@@ -2791,9 +2791,11 @@ def get_municipality_or_town(lat, lon):
             
             match = re.search(r'Općina\s+([^,]+)', display_name)
             if match:
-                return f"{match.group(1)}"
-            else:
-                return 0
+                return match.group(1).strip()
+            match = re.search(r'Grad\s+([^,]+)', display_name)
+            if match:
+                return match.group(1).strip()
+            return 0
     except requests.RequestException as e:
         return f"Error: {e}"
 
