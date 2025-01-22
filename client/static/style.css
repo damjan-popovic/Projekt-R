@@ -19,6 +19,11 @@ html, body {
     font-weight: bold;
 }
 
+#airbnb-highlight-dio {
+    color: #420057;
+    font-weight: bold;
+}
+
 /* LIJEVI DIO STRANICE -----------------------------------*/
 .lijevo-tijelo {
     display: flex;
@@ -93,6 +98,22 @@ html, body {
     transition: height 0.5s ease-in-out;
 }
 
+#clear-markers-button{
+    background: linear-gradient(to right, #c348e9, #9d26c2);
+    color: white;
+    border: none;
+    padding: 1vh 2vh;
+    font-size: 2vh;
+    font-weight: bold;
+    border-radius: 0.7vh;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#clear-markers-button:hover{
+    background: linear-gradient(to right, #d680f0, #c143e7);
+}
+
 #menu {
     display: flex;
     flex-direction: column;
@@ -147,11 +168,13 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 10%;
-    width: 100%;
+    height: 100%;
+    width: fit-content;
     font-size: 5vh;
     margin: 2vh 0 1vh 0;
     text-align: center;
+    white-space: nowrap;
+
 }
 
 #map-container {
@@ -209,6 +232,8 @@ html, body {
 .gumb-tijelo{
     display: flex;
     justify-content: center;
+    flex-direction: row;
+    gap: 1vw;
     margin-top: 10%;
 }
 

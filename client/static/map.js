@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
+
     let menu = document.getElementById("menu");
     let mapContainer = document.getElementById("map-container");
     let lijevoTijelo = document.querySelector(".lijevo-tijelo");
@@ -192,9 +193,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             },
                             mouseout: resetSubHighlight,
                             click: function () {
+                                let subregionName = feature.properties.NAME_2;
                                 document.getElementById("selectedSubregion").value = subregionName;
                                 let bounds = layer.getBounds();
                                 map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+                                updateHighlightLocation(subregionName)
                             }
                         });
                     }
@@ -233,10 +236,25 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             mouseout: resetHighlight,
             click: function () {
+                let countyName = `${feature.properties.NAME_1} županija`;
                 loadSubRegions(feature.properties.NAME_1);
+                updateHighlightLocation(countyName)
             }
         });
     }
+
+    function updateHighlightLocation(name) {
+        let airbnbHighlightDio = document.getElementById("airbnb-highlight-dio")
+
+        if (name !== "nijedno") {
+            airbnbHighlightDio.textContent = name;
+        } else if (name !== "nijedno") {
+            airbnbHighlightDio.textContent = name;
+        } else {
+            airbnbHighlightDio.textContent = "Croatia";
+        }
+    }
+
 
     let countyAveragesData = {};
     fetch("http://localhost:3000/api/countyAverages")
