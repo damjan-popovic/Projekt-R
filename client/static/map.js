@@ -9,13 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let mapContainer = document.getElementById("map-container");
     let lijevoTijelo = document.querySelector(".lijevo-tijelo");
     let naslovTijelo = document.querySelector(".naslov-tijelo");
+    let filterContainer = document.getElementById("filter-container");
+    let arrow = document.getElementById("arrow");
     let screenWidth = window.innerWidth;
-
     let menuWidth = screenWidth > 768 ? "15%" : "20%";
 
     mapContainer.style.width = screenWidth > 768 ? "calc(100% + 22%)" : "calc(100% + 40%)";
     mapContainer.style.marginLeft = screenWidth > 768 ? "-6%" : "-12%";
     lijevoTijelo.style.width = screenWidth > 768 ? "5%": "10%";
+
+    filterContainer.style.height = "0";
 
     document.getElementById("menu-toggle").addEventListener("click", function() {
         if (menu.style.left === "-100%" || menu.style.left === "") {
@@ -28,6 +31,16 @@ document.addEventListener("DOMContentLoaded", function () {
             lijevoTijelo.style.width = screenWidth > 768 ? "5%": "0%";
             mapContainer.style.width = screenWidth > 768 ? "calc(100% + 22%)" : "calc(100% + 40%)";
             mapContainer.style.marginLeft = screenWidth > 768 ? "-6%" : "-12";
+        }
+    });
+
+    document.getElementById("naslov-filteri").addEventListener("click", function() {
+        if (filterContainer.style.height === "0px" || filterContainer.style.height === "") {
+            filterContainer.style.height = filterContainer.scrollHeight + "px";
+            arrow.style.transform = "rotate(180deg)"
+        } else {
+            filterContainer.style.height = "0";
+            arrow.style.transform = "rotate(0deg)";
         }
     });
 

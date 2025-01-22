@@ -4,6 +4,9 @@ html, body {
     padding: 0;
     overflow-x: hidden;
     overflow-y: hidden;
+    font-family: "Roboto", serif;
+    background-color: #be8fcc;
+    color: #ffffff;
 }
 
 .tijelo {
@@ -11,6 +14,10 @@ html, body {
     height: 100vh;
 }
 
+.airbnb-highlight {
+    color: #420057;
+    font-weight: bold;
+}
 
 /* LIJEVI DIO STRANICE -----------------------------------*/
 .lijevo-tijelo {
@@ -28,14 +35,62 @@ html, body {
     align-items: center;
     left: 0.5vw;
     top: 4vh;
-    background-color: #ffffff;
     transition: background-color 0.5s ease-in-out, left 0.5s ease-in-out;
     z-index: 2000;
 }
 
 .gumb-toggle{
-    width: fit-content;
-    font-size: 1.4vh;
+    background: linear-gradient(to right, #c348e9, #9d26c2);
+    color: white;
+    border: none;
+    padding: 0.7vh 1.5vh;
+    font-size: 2vh;
+    font-weight: bold;
+    border-radius: 0.7vh;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gumb-toggle:hover{
+    background: linear-gradient(to right, #d680f0, #c143e7);
+}
+
+.gumb-filter{
+    background: linear-gradient(to right, #c348e9, #9d26c2);
+    color: white;
+    border: none;
+    padding: 1vh 2vh;
+    font-size: 2vh;
+    font-weight: bold;
+    border-radius: 0.7vh;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.gumb-filter:hover{
+    background: linear-gradient(to right, #d680f0, #c143e7);
+}
+
+#naslov-filteri{
+    cursor: pointer;
+    font-weight: bold;
+    padding: 1vh;
+    color: white;
+    margin-bottom: 0.3vh;
+}
+
+#naslov-filteri:hover{
+    color: #bebebe;
+}
+
+#arrow {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+#filter-container{
+    height: 0;
+    overflow: hidden; 
+    transition: height 0.5s ease-in-out;
 }
 
 #menu {
@@ -44,10 +99,27 @@ html, body {
     height: 100%;
     width: 15%;
     padding-top: 10vh;
-    background-color: #a5a2a2;
+    background-color: #420057;
+    color: rgb(255, 255, 255);
     position: absolute;
     transition: left 0.5s ease-in-out;
     left: -100%;
+}
+
+.menu-divider {
+    width: 100%;
+    height: 0.1vh;
+    background-color: #ffffff;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+}
+
+.od-do-input{
+    border-radius: 0.5vh;
+}
+
+.samostalni-brojevi-input{
+    border-radius: 0.5vh;
 }
 /* ------------------------------------------------------- */
 

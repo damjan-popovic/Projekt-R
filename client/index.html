@@ -6,74 +6,82 @@
     <title>Airbnb Map Croatia</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="tijelo">
         <div class="lijevo-tijelo">
             <div id="menu">
-                <form id="filterForm">
-                    <div id="od-do">
-                        <label>Cijena:</label>
-                        <div id="od-do-tijelo">
-                            <input class= "od-do-input" type="number" id="d_price" name="d_price">
-                            <label> - </label>
-                            <input class= "od-do-input" type="number" id="g_price" name="g_price">
+                <h2 id="naslov-filteri">FILTERI: <span id="arrow">▼</span></h2>
+                <div class="menu-divider"></div>
+                <div id="filter-container">
+                    <form id="filterForm">
+                        <div id="od-do">
+                            <label>Cijena:</label>
+                            <div id="od-do-tijelo">
+                                <input class= "od-do-input" type="number" id="d_price" name="d_price">
+                                <label> - </label>
+                                <input class= "od-do-input" type="number" id="g_price" name="g_price">
+                            </div>
                         </div>
-                    </div>
-                        
-                    <div id="samostalni-brojevi">
-                        <label>Broj soba:</label>
-                        <div id="samostalni-brojevi-tijelo">
-                            <input class= "samostalni-brojevi-input" type="number" id="rooms" name="rooms">
+                            
+                        <div id="samostalni-brojevi">
+                            <label>Broj soba:</label>
+                            <div id="samostalni-brojevi-tijelo">
+                                <input class= "samostalni-brojevi-input" type="number" id="rooms" name="rooms">
+                            </div>
                         </div>
-                    </div>
-                        
-                    <div id="samostalni-brojevi">
-                        <label>Kapacitet:</label>
-                        <div id="samostalni-brojevi-tijelo">
-                            <input class= "samostalni-brojevi-input" type="number" id="capacity" name="capacity">
-                        </div>  
-                    </div>
-                        
-                    <div id="samostalni-brojevi">
-                        <label>Broj Kreveta:</label>
-                        <div id="samostalni-brojevi-tijelo">
-                            <input class= "samostalni-brojevi-input" type="number" id="beds" name="beds">
+                            
+                        <div id="samostalni-brojevi">
+                            <label>Kapacitet:</label>
+                            <div id="samostalni-brojevi-tijelo">
+                                <input class= "samostalni-brojevi-input" type="number" id="capacity" name="capacity">
+                            </div>  
                         </div>
-                    </div>
-                        
-                    <div id="samostalni-brojevi">
-                        <label>Broj kupaonica:</label>
-                        <div id="samostalni-brojevi-tijelo">
-                            <input class= "samostalni-brojevi-input" type="number" id="baths" name="baths">
+                            
+                        <div id="samostalni-brojevi">
+                            <label>Broj Kreveta:</label>
+                            <div id="samostalni-brojevi-tijelo">
+                                <input class= "samostalni-brojevi-input" type="number" id="beds" name="beds">
+                            </div>
                         </div>
-                    </div>
-                        
-                    <div id="od-do">
-                        <label>Ocjena smještaja:</label>
-                        <div id="od-do-tijelo">
-                            <input class= "od-do-input" type="number" id="d_arating" name="d_arating">
-                            <label> - </label>
-                            <input class= "od-do-input" type="number" id="g_arating" name="g_arating">
+                            
+                        <div id="samostalni-brojevi">
+                            <label>Broj kupaonica:</label>
+                            <div id="samostalni-brojevi-tijelo">
+                                <input class= "samostalni-brojevi-input" type="number" id="baths" name="baths">
+                            </div>
                         </div>
-                    </div>
-                        
-                    <div id="od-do">
-                        <label>Ocjena domaćina:</label>
-                        <div id="od-do-tijelo">
-                            <input class= "od-do-input" type="number" id="d_hrating" name="d_hrating">
-                            <label> - </label>
-                            <input class= "od-do-input" type="number" id="g_hrating" name="g_hrating">
+                            
+                        <div id="od-do">
+                            <label>Ocjena smještaja:</label>
+                            <div id="od-do-tijelo">
+                                <input class= "od-do-input" type="number" id="d_arating" name="d_arating">
+                                <label> - </label>
+                                <input class= "od-do-input" type="number" id="g_arating" name="g_arating">
+                            </div>
                         </div>
-                    </div>
-                        
-                    <div class="gumb-tijelo">
-                        <button class="gumb-filter" type="submit">Filter</button>
-                    </div>
+                            
+                        <div id="od-do">
+                            <label>Ocjena domaćina:</label>
+                            <div id="od-do-tijelo">
+                                <input class= "od-do-input" type="number" id="d_hrating" name="d_hrating">
+                                <label> - </label>
+                                <input class= "od-do-input" type="number" id="g_hrating" name="g_hrating">
+                            </div>
+                        </div>
+                            
+                        <div class="gumb-tijelo">
+                            <button class="gumb-filter" type="submit">Filter</button>
+                        </div>
 
-                    <input type="hidden" id="selectedCounty" name="selectedCounty" value="">
-                    <input type="hidden" id="selectedSubregion" name="selectedSubregion" value="">
-                </form>
+                        <input type="hidden" id="selectedCounty" name="selectedCounty" value="">
+                        <input type="hidden" id="selectedSubregion" name="selectedSubregion" value="">
+                    </form>
+                </div>
+                <div class="menu-divider"></div>
             </div>
         </div>
         <div class="desno-tijelo">
@@ -81,7 +89,7 @@
                 <div class="gumb-toggle-tijelo">
                     <button class="gumb-toggle" id="menu-toggle">☰ Menu</button>
                 </div>
-                <h1 class="naslov">Airbnb Listings in Croatia</h1>
+                <h1 class="naslov"><span class="airbnb-highlight">Air</span>bnb Listings in&nbsp;<span class="airbnb-highlight">Croatia</span></h1>
             </div>
             <div id="map-container">
                 <div id="map"></div>
