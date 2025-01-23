@@ -75,6 +75,21 @@ html, body {
     background: linear-gradient(to right, #d680f0, #c143e7);
 }
 
+#gumb-clear{
+    background: linear-gradient(to right, #c348e9, #9d26c2);
+    color: white;
+    border: none;
+    padding: 1vh 2vh;
+    font-size: 2vh;
+    font-weight: bold;
+    border-radius: 0.7vh;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#gumb-clear:hover{
+    background: linear-gradient(to right, #d680f0, #c143e7);
+}
+
 #naslov-filteri{
     cursor: pointer;
     font-weight: bold;

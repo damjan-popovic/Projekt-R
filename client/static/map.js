@@ -5,6 +5,22 @@ document.addEventListener("DOMContentLoaded", function () {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
+    let d_price = 0;
+    let g_price = 1000000;
+    let d_rooms = 0;
+    let g_rooms = 1000;
+    let d_capacity = 0;
+    let g_capacity = 1000;
+    let d_beds = 0;
+    let g_beds = 1000;
+    let d_baths = 0;
+    let g_baths = 1000;
+    let d_arating = 0;
+    let g_arating = 5;
+    let d_hrating = 0;
+    let g_hrating = 5;
+    let selectedCounty = document.getElementById("selectedCounty").value || 'nijedno';
+    let selectedSubregion = document.getElementById("selectedSubregion").value || 'nijedno';
 
     let menu = document.getElementById("menu");
     let mapContainer = document.getElementById("map-container");
@@ -20,6 +36,42 @@ document.addEventListener("DOMContentLoaded", function () {
     lijevoTijelo.style.width = screenWidth > 768 ? "5%": "10%";
 
     filterContainer.style.height = "0";
+
+    document.getElementById("gumb-clear").addEventListener("click", function() {
+        map.eachLayer(layer => {
+            if (layer instanceof L.Marker) {
+                map.removeLayer(layer);
+            }
+            if (subGeojsonLayer) {
+                map.removeLayer(subGeojsonLayer);
+            }
+
+            document.getElementById("d_price").value = "";
+            document.getElementById("g_price").value = "";
+            document.getElementById("rooms").value = "";
+            document.getElementById("rooms").value = "";
+            document.getElementById("capacity").value = "";
+            document.getElementById("capacity").value = "";
+            document.getElementById("beds").value = "";
+            document.getElementById("beds").value = "";
+            document.getElementById("baths").value = "";
+            document.getElementById("baths").value = "";
+            document.getElementById("d_arating").value = "";
+            document.getElementById("g_arating").value = "";
+            document.getElementById("d_hrating").value = "";
+            document.getElementById("g_hrating").value = "";
+
+
+            document.getElementById("selectedCounty").value = 'nijedno';
+            document.getElementById("selectedSubregion").value = 'nijedno';
+            document.getElementById("airbnb-highlight-dio").textContent = "Croatia";
+
+            map.flyTo([44.5569, 16.3678], 8, {
+                animate: true,
+                duration: 0.25
+            });
+        });
+    });
 
     document.getElementById("menu-toggle").addEventListener("click", function() {
         if (menu.style.left === "-100%" || menu.style.left === "") {
@@ -48,22 +100,22 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('filterForm').addEventListener('submit', function (event) {
         event.preventDefault(); 
 
-        let d_price = document.getElementById("d_price").value || 0;
-        let g_price = document.getElementById("g_price").value || 1000000;
-        let d_rooms = document.getElementById("rooms").value || 0;
-        let g_rooms = document.getElementById("rooms").value || 1000;
-        let d_capacity = document.getElementById("capacity").value || 0;
-        let g_capacity = document.getElementById("capacity").value || 1000;
-        let d_beds = document.getElementById("beds").value || 0;
-        let g_beds = document.getElementById("beds").value || 1000;
-        let d_baths = document.getElementById("baths").value || 0;
-        let g_baths = document.getElementById("baths").value || 1000;
-        let d_arating = document.getElementById("d_arating").value || 0;
-        let g_arating = document.getElementById("g_arating").value || 5;
-        let d_hrating = document.getElementById("d_hrating").value || 0;
-        let g_hrating = document.getElementById("g_hrating").value || 5;
-        let selectedCounty = document.getElementById("selectedCounty").value || 'nijedno';
-        let selectedSubregion = document.getElementById("selectedSubregion").value || 'nijedno';
+        d_price = document.getElementById("d_price").value || 0;
+        g_price = document.getElementById("g_price").value || 1000000;
+        d_rooms = document.getElementById("rooms").value || 0;
+        g_rooms = document.getElementById("rooms").value || 1000;
+        d_capacity = document.getElementById("capacity").value || 0;
+        g_capacity = document.getElementById("capacity").value || 1000;
+        d_beds = document.getElementById("beds").value || 0;
+        g_beds = document.getElementById("beds").value || 1000;
+        d_baths = document.getElementById("baths").value || 0;
+        g_baths = document.getElementById("baths").value || 1000;
+        d_arating = document.getElementById("d_arating").value || 0;
+        g_arating = document.getElementById("g_arating").value || 5;
+        d_hrating = document.getElementById("d_hrating").value || 0;
+        g_hrating = document.getElementById("g_hrating").value || 5;
+        selectedCounty = document.getElementById("selectedCounty").value || 'nijedno';
+        selectedSubregion = document.getElementById("selectedSubregion").value || 'nijedno';
 
         fetch('http://localhost:3000/api/data', {
             method: 'POST',

@@ -137,7 +137,6 @@ app.get("/api/countyAverages", async (req, res) => {
                 GROUP BY l.županija;
         `;
         const result = await pool.query(query);
-        console.log(result.rows)
         res.json(result.rows);
     } catch (error) {
         console.error("Database error:", error);
