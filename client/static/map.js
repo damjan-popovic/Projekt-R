@@ -288,6 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             mouseout: resetHighlight,
             click: function () {
+                document.getElementById("selectedSubregion").value = 'nijedno';
                 let countyName = `${feature.properties.NAME_1} županija`;
                 loadSubRegions(feature.properties.NAME_1);
                 updateHighlightLocation(countyName)
