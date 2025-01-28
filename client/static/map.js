@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let screenWidth = window.innerWidth;
     let menuWidth = screenWidth > 768 ? "15%" : "20%";
     let grafMenuWidth = screenWidth > 768 ? "40%" : "50%";
+    let filteriExpanded = false;
     let grafExpanded = false;
 
     mapContainer.style.width = screenWidth > 768 ? "calc(100% + 22%)" : "calc(100% + 40%)";
@@ -96,12 +97,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById("naslov-filteri").addEventListener("click", function() {
-        if (filterContainer.style.height === "0px" || filterContainer.style.height === "") {
+        if ((filterContainer.style.height === "0px" || filterContainer.style.height === "") && grafExpanded === false) {
             filterContainer.style.height = filterContainer.scrollHeight + "px";
-            arrow.style.transform = "rotate(180deg)"
+            arrow.style.transform = "rotate(180deg)";
+            filteriExpanded = true;
+            filterContainer.style.overflowY = "hidden";
+            grafoviContainer.style.overflowY = "hidden";
+        } else if ((filterContainer.style.height === "0px" || filterContainer.style.height === "") && grafExpanded === true) {
+            filterContainer.style.height = filterContainer.scrollHeight + "px";
+            arrow.style.transform = "rotate(180deg)";
+            filteriExpanded = true;
+            filterContainer.style.overflowY = "scroll";
+            grafoviContainer.style.overflowY = "scroll";
         } else {
             filterContainer.style.height = "0";
             arrow.style.transform = "rotate(0deg)";
+            filteriExpanded = false;
+            filterContainer.style.overflowY = "hidden";
+            grafoviContainer.style.overflowY = "hidden";
         }
     });
 
@@ -174,18 +187,31 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("naslov-grafovi").addEventListener("click", function() {
         const arrow = document.getElementById("arrow-grafovi");
     
-        if (grafoviContainer.style.height === "0px" || grafoviContainer.style.height === "") {
+        if ((grafoviContainer.style.height === "0px" || grafoviContainer.style.height === "") && filteriExpanded === false) {
             arrow.style.transform = "rotate(180deg)";
             lijevoTijelo.style.width = "56.7%";
             grafoviContainer.style.height = grafoviContainer.scrollHeight + "px";
             menu.style.width = grafMenuWidth;
             grafExpanded = true;
+            filterContainer.style.overflowY = "hidden";
+            grafoviContainer.style.overflowY = "hidden";
+        } else if ((grafoviContainer.style.height === "0px" || grafoviContainer.style.height === "") && filteriExpanded === true) {
+            arrow.style.transform = "rotate(180deg)";
+            lijevoTijelo.style.width = "56.7%";
+            grafoviContainer.style.height = grafoviContainer.scrollHeight + "px";
+            filterContainer.style.height = filterContainer.scrollHeight + "px";
+            menu.style.width = grafMenuWidth;
+            grafExpanded = true;
+            filterContainer.style.overflowY = "scroll";
+            grafoviContainer.style.overflowY = "scroll";
         } else {
             arrow.style.transform = "rotate(0deg)";
             grafoviContainer.style.height = "0";
             menu.style.width = menuWidth;
             lijevoTijelo.style.width = menuWidth;
             grafExpanded = false;
+            filterContainer.style.overflowY = "hidden";
+            grafoviContainer.style.overflowY = "hidden";
         }
     });
 
