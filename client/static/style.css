@@ -111,6 +111,7 @@ html, body {
     height: 0;
     overflow: hidden; 
     transition: height 0.5s ease-in-out;
+    overflow-y: scroll;
 }
 
 /*-------------------------GRAF---------------------------*/
@@ -132,13 +133,11 @@ html, body {
 }
 
 #grafovi-container {
-    height: 0;
     overflow: hidden; 
     transition: height 0.5s ease-in-out;
-}
-
-.chart-area {
+    overflow-y: scroll;
     width: 100%;
+    height: 0;
 }
 /*-------------------------KRAJ-GRAF-----------------------*/
 
@@ -161,13 +160,13 @@ html, body {
 #menu {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 90%;
     width: 15%;
     padding-top: 10vh;
     background-color: #420057;
     color: rgb(255, 255, 255);
     position: absolute;
-    transition: left 0.5s ease-in-out;
+    transition: left 0.5s ease-in-out, width 0.5s ease-in-out;
     left: -100%;
 }
 
@@ -199,13 +198,13 @@ html, body {
 .naslov-tijelo{
     position: fixed;
     top: 0;
-    left: 30%;
-    width: 50%;
+    width: 85%;
     height: 10%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     z-index: 2000;
+    padding-left: 2%;
 }
 
 .naslov {
@@ -305,7 +304,7 @@ html, body {
     }
 
     #menu {
-        height: 100%;
+        height: 90%;
         width: 20%;
         padding-top: 10vh;
     }
@@ -325,5 +324,9 @@ html, body {
         font-size: 3vh;
         width: 100%;
         margin: 3vh 0 1vh 0vh;
+    }
+
+    .grafovi-container {
+        overflow-x: scroll;
     }
 }

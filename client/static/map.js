@@ -27,10 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let lijevoTijelo = document.querySelector(".lijevo-tijelo");
     let naslovTijelo = document.querySelector(".naslov-tijelo");
     let filterContainer = document.getElementById("filter-container");
+    let grafoviContainer = document.getElementById("grafovi-container");
     let arrow = document.getElementById("arrow");
     let screenWidth = window.innerWidth;
     let menuWidth = screenWidth > 768 ? "15%" : "20%";
     let grafMenuWidth = screenWidth > 768 ? "40%" : "50%";
+    let grafExpanded = false;
 
     mapContainer.style.width = screenWidth > 768 ? "calc(100% + 22%)" : "calc(100% + 40%)";
     mapContainer.style.marginLeft = screenWidth > 768 ? "-6%" : "-12%";
@@ -75,9 +77,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById("menu-toggle").addEventListener("click", function() {
-        if (menu.style.left === "-100%" || menu.style.left === "") {
+        if ((menu.style.left === "-100%" || menu.style.left === "") && grafExpanded === false) {
             menu.style.left = "0";
             lijevoTijelo.style.width = menuWidth;
+            mapContainer.style.width = "100%";
+            mapContainer.style.marginLeft = "0";
+        } else if ((menu.style.left === "-100%" || menu.style.left === "") && grafExpanded === true) {
+            menu.style.left = "0";
+            lijevoTijelo.style.width = "56.7%";
             mapContainer.style.width = "100%";
             mapContainer.style.marginLeft = "0";
         } else {
@@ -165,22 +172,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document.getElementById("naslov-grafovi").addEventListener("click", function() {
-        const container = document.getElementById("grafovi-container");
         const arrow = document.getElementById("arrow-grafovi");
     
-        if (container.style.height === "0px" || container.style.height === "") {
-            container.style.height = "500px";
+        if (grafoviContainer.style.height === "0px" || grafoviContainer.style.height === "") {
             arrow.style.transform = "rotate(180deg)";
             lijevoTijelo.style.width = "56.7%";
+            grafoviContainer.style.height = grafoviContainer.scrollHeight + "px";
             menu.style.width = grafMenuWidth;
-            mapContainer.style.width = "100%";
+            grafExpanded = true;
         } else {
-            container.style.height = "0px";
             arrow.style.transform = "rotate(0deg)";
+            grafoviContainer.style.height = "0";
             menu.style.width = menuWidth;
             lijevoTijelo.style.width = menuWidth;
-            mapContainer.style.width = "100%";
-            mapContainer.style.marginLeft = "0";
+            grafExpanded = false;
         }
     });
 
@@ -429,8 +434,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     };
     
                     const options = {
-                        chart: { width: visualViewport.width*0.4, height: 500, title: "County-wise Price, Rating & Ratio" },
-                        xAxis: { title: "County" },
+                        chart: { width: visualViewport.width*0.4, height: visualViewport.height*0.6, title: "County-wise Price, Rating & Ratio" },
+                        xAxis: {
+                            title: "County",
+                            label: {
+                                interval: 1,
+                                rotateDegree: -45
+                            }
+                        },
                         yAxis: [
                             {
                                 title: "Average Price (€)",
