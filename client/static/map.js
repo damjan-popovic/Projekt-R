@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let arrow = document.getElementById("arrow");
     let screenWidth = window.innerWidth;
     let menuWidth = screenWidth > 768 ? "15%" : "20%";
+    let grafMenuWidth = screenWidth > 768 ? "40%" : "50%";
 
     mapContainer.style.width = screenWidth > 768 ? "calc(100% + 22%)" : "calc(100% + 40%)";
     mapContainer.style.marginLeft = screenWidth > 768 ? "-6%" : "-12%";
@@ -163,6 +164,26 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error('Error fetching data:', error));
     });
 
+    document.getElementById("naslov-grafovi").addEventListener("click", function() {
+        const container = document.getElementById("grafovi-container");
+        const arrow = document.getElementById("arrow-grafovi");
+    
+        if (container.style.height === "0px" || container.style.height === "") {
+            container.style.height = "500px";
+            arrow.style.transform = "rotate(180deg)";
+            lijevoTijelo.style.width = "56.7%";
+            menu.style.width = grafMenuWidth;
+            mapContainer.style.width = "100%";
+        } else {
+            container.style.height = "0px";
+            arrow.style.transform = "rotate(0deg)";
+            menu.style.width = menuWidth;
+            lijevoTijelo.style.width = menuWidth;
+            mapContainer.style.width = "100%";
+            mapContainer.style.marginLeft = "0";
+        }
+    });
+
     let geojsonLayer, subGeojsonLayer;
 
     function styleFeature(feature) {
@@ -266,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
         layer.on({
             mouseover: function (e) {
-                let countyName = `${feature.properties.NAME_1} županija`;
+                let countyName = feature.properties.NAME_1 === "Grad Zagreb" ? "Grad Zagreb" : feature.properties.NAME_1 + " županija";
 
                 let avgPrice = countyAveragesData[countyName] ? `€${countyAveragesData[countyName].avg_price}` : "No data";
                 let avgRating = countyAveragesData[countyName] ? countyAveragesData[countyName].avg_rating : "No data";
@@ -289,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
             mouseout: resetHighlight,
             click: function () {
                 document.getElementById("selectedSubregion").value = 'nijedno';
-                let countyName = `${feature.properties.NAME_1} županija`;
+                let countyName = feature.properties.NAME_1 === "Grad Zagreb" ? "Grad Zagreb" : feature.properties.NAME_1 + " županija";
                 loadSubRegions(feature.properties.NAME_1);
                 updateHighlightLocation(countyName)
             }
@@ -344,4 +365,95 @@ document.addEventListener("DOMContentLoaded", function () {
             }).addTo(map);
         })
         .catch(error => console.error('Error loading GeoJSON:', error));
+
+    //GRAF
+    fetch("http://localhost:3000/api/countyAverages")
+        .then(response => response.json())
+        .then(countyAveragesData => {
+            fetch('static/gadm41_HRV_1.json')
+                .then(response => response.json())
+                .then(countyData => {
+                    const allCounties = countyData.features.map(feature => {
+                        return feature.properties.NAME_1 === "Grad Zagreb" ? "Grad Zagreb" : feature.properties.NAME_1 + " županija";
+                    });
+    
+                    const countyNames = allCounties.filter(county => {
+                        let found = countyAveragesData.find(c => c.županija === county);
+                        return found && found.avg_price != null && found.avg_rating != null;
+                    });
+    
+                    let avgPrices = countyNames.map(county => {
+                        let found = countyAveragesData.find(c => c.županija === county);
+                        return parseFloat(parseFloat(found.avg_price).toFixed(2));
+                    });
+    
+                    let avgRatings = countyNames.map(county => {
+                        let found = countyAveragesData.find(c => c.županija === county);
+                        return parseFloat(parseFloat(found.avg_rating).toFixed(3));
+                    });
+    
+                    let maxCountyPrice = Math.max(...countyAveragesData.map(c => c.avg_price || 0));
+                    let minCountyPrice = Math.min(...countyAveragesData.map(c => c.avg_price || Infinity));
+                    if (maxCountyPrice === minCountyPrice) { minCountyPrice = maxCountyPrice - 1; }
+    
+                    let ratingPriceRatios = countyNames.map(county => {
+                        let found = countyAveragesData.find(c => c.županija === county);
+                        if (!found || found.avg_rating == null || found.avg_price == null) return 0;
+                        if (maxCountyPrice === minCountyPrice) return 0;
+    
+                        let normalizedRating = (found.avg_rating - 1) / 4;
+                        let normalizedPrice = (maxCountyPrice - found.avg_price) / (maxCountyPrice - minCountyPrice);
+    
+                        return parseFloat(((normalizedRating + normalizedPrice) * 2.5).toFixed(3));
+                    }).filter(value => !isNaN(value));
+    
+                    console.log("Rating Price Ratios:", ratingPriceRatios);
+    
+                    const container = document.getElementById('chart-area');
+                    if (!container) {
+                        console.error("Chart container not found!");
+                        return;
+                    }
+    
+                    const data = {
+                        categories: countyNames,
+                        series: {
+                            column: [
+                                { name: "Average Price (€)", data: avgPrices }
+                            ],
+                            line: [
+                                { name: "Average Rating", data: avgRatings },
+                                { name: "Rating-Price Ratio", data: ratingPriceRatios }
+                            ]
+                        }
+                    };
+    
+                    const options = {
+                        chart: { width: visualViewport.width*0.4, height: 500, title: "County-wise Price, Rating & Ratio" },
+                        xAxis: { title: "County" },
+                        yAxis: [
+                            {
+                                title: "Average Price (€)",
+                                chartType: "column",
+                                scale: { min: 0 }
+                            },
+                            {
+                                title: "Average Rating & Ratio",
+                                chartType: "line",
+                                scale: { min: 0, max: 5 },
+                                align: "right"
+                            }
+                        ],
+                        series: {
+                            showDot: true,
+                            spline: true
+                        },
+                        legend: { align: "bottom" }
+                    }
+                toastui.Chart.columnLineChart({ el: container, data, options })
+                })
+                .catch(error => console.error("Error loading county data:", error));
+        })
+        .catch(error => console.error("Error fetching county averages:", error));
+    
 });

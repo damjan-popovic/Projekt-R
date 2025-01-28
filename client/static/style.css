@@ -113,6 +113,35 @@ html, body {
     transition: height 0.5s ease-in-out;
 }
 
+/*-------------------------GRAF---------------------------*/
+#naslov-grafovi {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 1vh;
+    color: white;
+    margin-bottom: 0.3vh;
+}
+
+#naslov-grafovi:hover {
+    color: #bebebe;
+}
+
+#arrow-grafovi {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+#grafovi-container {
+    height: 0;
+    overflow: hidden; 
+    transition: height 0.5s ease-in-out;
+}
+
+.chart-area {
+    width: 100%;
+}
+/*-------------------------KRAJ-GRAF-----------------------*/
+
 #clear-markers-button{
     background: linear-gradient(to right, #c348e9, #9d26c2);
     color: white;
