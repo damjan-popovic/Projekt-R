@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         document.getElementById("selectedCounty").value = countyName;
     
-        fetch(`static/gadm41_HRV_2.json`)
+        fetch('static/gadm41_HRV_2.json')
             .then(response => response.json())
             .then(data => {
                 let filteredData = {
@@ -362,7 +362,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     let countyAveragesData = {};
-    fetch("http://localhost:3000/api/countyAverages")
+    fetch("https://isohr.onrender.com/api/countyAverages")
         .then(response => response.json())
         .then(data => {
             data.forEach(item => {
@@ -375,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error fetching averages:", error));
 
     let subregionAveragesData = {};
-    fetch("http://localhost:3000/api/subregionAverages")
+    fetch("https://isohr.onrender.com/api/subregionAverages")
         .then(response => response.json())
         .then(data => {
             data.forEach(item => {
@@ -398,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error('Error loading GeoJSON:', error));
 
     //GRAF
-    fetch("http://localhost:3000/api/countyAverages")
+    fetch("https://isohr.onrender.com/api/countyAverages")
         .then(response => response.json())
         .then(countyAveragesData => {
             fetch('static/gadm41_HRV_1.json')

@@ -1,9 +1,21 @@
 import json
+import os
 import psycopg2
-from config import DB_CONFIG
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def connect_db():
-    return psycopg2.connect(**DB_CONFIG)
+    db_config = {
+        'host': os.getenv('DB_HOST'),
+        'port': int(os.getenv('DB_PORT')),
+        'dbname': os.getenv('DB_NAME'),
+        'user': os.getenv('DB_USER'),
+        'password': os.getenv('DB_PASSWORD'),
+        'sslmode': 'require'
+    }
+    
+    return psycopg2.connect(**db_config)
 
 def insert_data():
     with open("listingsDetails.json", "r", encoding="utf-8") as file:

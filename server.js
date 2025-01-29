@@ -1,19 +1,27 @@
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
 const port = 3000;
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://isohr.onrender.com', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
+app.set('trust proxy', 1);
 
 const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "ProjektR",
-    password: "noodle",
-    port: 5433,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: 5432,
 });
 
 app.post("/api/data", async (req, res) => {
