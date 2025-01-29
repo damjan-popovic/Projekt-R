@@ -477,7 +477,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             {
                                 title: "Average Rating & Ratio",
                                 chartType: "line",
-                                scale: { min: 0, max: 5 },
+                                scale: { min: 0, max: 5.5 },
                                 align: "right"
                             }
                         ],
