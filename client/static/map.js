@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedCounty = document.getElementById("selectedCounty").value || 'nijedno';
         selectedSubregion = document.getElementById("selectedSubregion").value || 'nijedno';
 
-        fetch('http://localhost:3000/api/data', {
+        fetch('https://isohr.onrender.com/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
