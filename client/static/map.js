@@ -138,13 +138,11 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedCounty = document.getElementById("selectedCounty").value || 'nijedno';
         selectedSubregion = document.getElementById("selectedSubregion").value || 'nijedno';
 
-        const formattedCounty = selectedCounty === "Grad Zagreb" ? selectedCounty : `${selectedCounty} županija`;
-
         fetch('https://isohr.onrender.com/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                selectedCounty: formattedCounty,
+                selectedCounty,
                 selectedSubregion,
                 d_price, g_price, 
                 d_rooms, g_rooms, 
