@@ -90,7 +90,7 @@ app.post("/api/data", async (req, res) => {
             a.numofbathrooms between $9 and $10 AND
             CAST(REPLACE(REPLACE(a.accrating, 'Nema', '0'), ',', '.') AS DECIMAL) between $11 and $12 AND
             CAST(REPLACE(REPLACE(h.hostrating, 'Nema ocjene', '0'), ',', '.') AS DECIMAL) between $13 and $14 AND
-            l.županija = $15;
+        	l.županija LIKE CONCAT('%', $15, ' županija%');
             `
     values = [d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating, selectedCounty];
     result = await pool.query(query, values);
@@ -123,7 +123,7 @@ app.post("/api/data", async (req, res) => {
             a.numofbathrooms between $9 and $10 AND
             CAST(REPLACE(REPLACE(a.accrating, 'Nema', '0'), ',', '.') AS DECIMAL) between $11 and $12 AND
             CAST(REPLACE(REPLACE(h.hostrating, 'Nema ocjene', '0'), ',', '.') AS DECIMAL) between $13 and $14 AND
-            l.županija = $15 AND l.grad = $16;
+            l.županija LIKE CONCAT('%', $15, ' županija%') AND l.grad = $16;
         `
         values = [d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating, selectedCounty, selectedSubregion];
         result = await pool.query(query, values);
