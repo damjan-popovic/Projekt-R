@@ -92,7 +92,7 @@ def scrape_jedan_oglas(url, ponavljanja=1):
     while pokusaj < ponavljanja:
         driver = None
         refresh_attempts = 0
-        max_refresh_attempts = 20
+        max_refresh_attempts = 2
         try:
             # 1) Kreiraj driver za *svaki* pokušaj
             options = Options()
@@ -238,7 +238,7 @@ def scrape_jedan_oglas(url, ponavljanja=1):
             
             # Klikni na link
             refresh_attempts = 0
-            max_refresh_attempts = 20
+            max_refresh_attempts = 2
 
             while refresh_attempts < max_refresh_attempts:
                 try:
@@ -398,20 +398,32 @@ def scrape_jedan_oglas(url, ponavljanja=1):
 
     return listingsDetails
 
+def load_existing_listings(file_path="listingsDetails.json"):
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+            return {listing["id"] for listing in data}, data
+    except (FileNotFoundError, json.JSONDecodeError):
+        return set(), []
+
+
 def scrape_vise_oglasa(urls, radne=3):
     """
     Skuplja rezultate za više oglasa paralelno.
-    Smanjili smo radne=3, možete vratiti na 13 kad sve bude stabilno.
+    Vraća samo nove listinge (ne sprema u JSON)
     """
     all_listings = []
+    existing_ids, _ = load_existing_listings()
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=radne) as executor:
-        futures = [executor.submit(scrape_jedan_oglas, url) for url in urls]
+        futures = {executor.submit(scrape_jedan_oglas, url): url for url in urls}
 
         for future in concurrent.futures.as_completed(futures):
             try:
-                result = future.result()  # dohvati return iz scrape_jedan_oglas
-                all_listings.extend(result)
+                result = future.result()
+                if result:
+                    new_listings = [listing for listing in result if listing["id"] not in existing_ids]
+                    all_listings.extend(new_listings)
             except Exception as e:
                 print(f"Greška: {e}")
 
@@ -421,7 +433,7 @@ def extract_listings_links(driver, pocetni_link):
     driver.get(pocetni_link)
     listings_links = set()
     scroll_pause = 2
-    max_refresh_attempts = 20
+    max_refresh_attempts = 2
     refresh_attempts = 0
 
     while True:
@@ -466,32 +478,25 @@ def extract_listings_links(driver, pocetni_link):
     return list(listings_links)
 
 def main():
-    pocetni_link = 'https://hr.airbnb.com/s/Istarska-%C5%BEupanija--Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Istarska%20%C5%BEupanija&place_id=ChIJq2fmnSmxfEcRMLUrhlCtAAM&location_bb=QjYUb0FjqBRCMwfGQVfV5g%3D%3D&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click'
+    pocetni_link = 'https://www.airbnb.com/s/Croatia/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&monthly_start_date=2025-02-01&monthly_length=3&monthly_end_date=2025-05-01&price_filter_input_type=0&channel=EXPLORE&query=Croatia&date_picker_type=calendar&source=structured_search_input_header&search_type=autocomplete_click&adults=1&price_filter_num_nights=5&place_id=ChIJ7ZXdCghBNBMRfxtm4STA86A&location_bb=Qjo4V0GblDpCKVqiQVXWoQ%3D%3D'
 
     options = Options()
-    #options.add_argument("--headless")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("start-maximized")
-    options.add_argument("--disable-extensions")
-    options.add_argument("--disable-images")
-    options.add_argument("--lang=hr")
-
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
     try:
+        existing_ids, existing_listings = load_existing_listings()
+        
         urls = extract_listings_links(driver, pocetni_link)
-        print(urls)
+        new_listings = scrape_vise_oglasa(urls)
 
-        pocetno_vrijeme = time.time()
-        listingsDetails = scrape_vise_oglasa(urls)
+        combined_listings = existing_listings + new_listings
+        
+        with open("listingsDetails.json", "w", encoding="utf-8") as file:
+            json.dump(combined_listings, file, ensure_ascii=False, indent=4)
 
-        with open('listingsDetails.json', 'w', encoding='utf-8') as file:
-            json.dump(listingsDetails, file, ensure_ascii=False, indent=4)
-
-        print(f"Scraping completed in {time.time() - pocetno_vrijeme:.2f} seconds.")
-        print(listingsDetails)
+        print(f"Scraping completed. New listings added: {len(new_listings)}")
+        print(f"Total listings in file: {len(combined_listings)}")
 
     finally:
         driver.quit()
