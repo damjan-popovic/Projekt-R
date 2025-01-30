@@ -92,7 +92,7 @@ app.post("/api/data", async (req, res) => {
             CAST(REPLACE(REPLACE(h.hostrating, 'Nema ocjene', '0'), ',', '.') AS DECIMAL) between $13 and $14 AND
             l.županija = $15;
             `
-    values = [d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating, `${selectedCounty} županija`];
+    values = [d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating, selectedCounty];
     result = await pool.query(query, values);
         } else if (selectedCounty !== 'nijedno' && selectedSubregion !== 'nijedno') {
             query = `
@@ -125,7 +125,7 @@ app.post("/api/data", async (req, res) => {
             CAST(REPLACE(REPLACE(h.hostrating, 'Nema ocjene', '0'), ',', '.') AS DECIMAL) between $13 and $14 AND
             l.županija = $15 AND l.grad = $16;
         `
-        values = [d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating, selectedCounty + ' županija', selectedSubregion];
+        values = [d_price, g_price, d_rooms, g_rooms, d_capacity, g_capacity, d_beds, g_beds, d_baths, g_baths, d_arating, g_arating, d_hrating, g_hrating, selectedCounty, selectedSubregion];
         result = await pool.query(query, values);
     }
 
